@@ -20,4 +20,4 @@ app.get('/',(req,res)=>{
 const analizar = require('./endpoints/analizadores')(parser, app)
 app.listen('3000', ()=>{
     console.log("Servidor en puerto 3000")
-}) 
+})
