@@ -116,6 +116,12 @@ AS_VAR: identificador menor menos EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsigna
 
 DEC_VAR: TIPO identificador ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, null, $1, this._$.first_line,this._$.first_column+1)}
        | TIPO identificador igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, $4, $1, this._$.first_line,this._$.first_column+1)}
+       | TIPO identificador LISTADEC ptcoma {var temp=$2; for(var i=0;i<$3.length;i++){temp=temp + "," + $3[i]}; $$ = INSTRUCCION.nuevaDeclaracion(temp, null, $1, this._$.first_line,this._$.first_column+1)}
+       | TIPO identificador LISTADEC igual EXPRESION ptcoma {var temp=$2; for(var i=0;i<$3.length;i++){temp=temp + "," + $3[i]}; $$ = INSTRUCCION.nuevaDeclaracion(temp, $5, $1, this._$.first_line,this._$.first_column+1)}
+;
+
+LISTADEC: LISTADEC coma identificador {$1.push($3); $$=$1;}
+        | coma identificador {$$=[$2];}
 ;
 
 TIPO: decimal {$$ = TIPO_DATO.DECIMAL}

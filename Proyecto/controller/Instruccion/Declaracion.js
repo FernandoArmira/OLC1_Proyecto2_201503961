@@ -3,7 +3,9 @@ const TIPO_DATO = require("../Enums/TipoDato");
 const Operacion = require("../Operacion/Operacion");
 
 function Declaracion(_instruccion, _ambito){
+    //console.log(_instruccion.id)
     if(_instruccion.tipo_dato === TIPO_DATO.DECIMAL){
+        //console.log("decimal")
         var valor = 0.0
         if(_instruccion.valor != null){
             op = Operacion(_instruccion.valor, _ambito)
@@ -17,13 +19,35 @@ function Declaracion(_instruccion, _ambito){
                 return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.DECIMAL+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
+
+        idval = _instruccion.id;
+        split2 = String(idval).split(",")
+
+        if(split2.length>1){
+            for(var i=0;i<split2.length;i++){
+
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
+                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                    "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    //Mandar mensaje a consola ......PENDIENTE
+                }
+                else{
+                    _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+                }
+            }
+
+        }
+        else {
+
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         //console.log(_ambito)
+        }
         return null
+        
     }
 
     else if(_instruccion.tipo_dato === TIPO_DATO.ENTERO){
@@ -43,11 +67,33 @@ function Declaracion(_instruccion, _ambito){
                 return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo ENTERO ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
+
+        idval = _instruccion.id;
+        split2 = String(idval).split(",")
+
+        if(split2.length>1){
+            for(var i=0;i<split2.length;i++){
+
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
+                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                    "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                }
+                else{
+                    _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+                }
+
+            }
+
+        }
+        else {
+
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+
+        }
         //console.log(_ambito)
         return null
     }
@@ -59,12 +105,33 @@ function Declaracion(_instruccion, _ambito){
             op = Operacion(_instruccion.valor, _ambito)
             valor = String(op.valor) //casteamos a cadena
         }
+
+        idval = _instruccion.id;
+        split2 = String(idval).split(",")
+
+        if(split2.length>1){
+            for(var i=0;i<split2.length;i++){
+
+                //verificamos si ya existe
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
+                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                    "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                }
+                else{
+                    _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+                }
+
+            }
+
+        }
+        else {
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+        }
         return null
         //console.log(_ambito)
     }
@@ -83,12 +150,33 @@ function Declaracion(_instruccion, _ambito){
                 return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.BANDERA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
+
+        idval = _instruccion.id;
+        split2 = String(idval).split(",")
+
+        if(split2.length>1){
+            for(var i=0;i<split2.length;i++){
+
+                //verificamos si ya existe
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
+                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                    "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                }
+                else{
+                    _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+                }
+
+            }
+
+        }
+        else {
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+        }
         return null
         //console.log(_ambito)
     }
@@ -105,12 +193,34 @@ function Declaracion(_instruccion, _ambito){
                 return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.CARACTER+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
+
+        idval = _instruccion.id;
+        split2 = String(idval).split(",")
+
+        if(split2.length>1){
+            for(var i=0;i<split2.length;i++){
+
+                //verificamos si ya existe
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
+                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                    "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                }
+                else{
+                    _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+                }
+
+            }
+
+        }
+        else {
+
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         //console.log(_ambito)
+        }
         return null
     }
 
