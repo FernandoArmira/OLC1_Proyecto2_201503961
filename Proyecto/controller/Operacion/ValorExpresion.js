@@ -26,6 +26,16 @@ function ValorExpresion(_expresion, _ambito){
             columna: _expresion.columna
         }
     }
+
+    else if(_expresion.tipo === TIPO_VALOR.CARACTER){
+        return {
+            valor: _expresion.valor.substring(1, _expresion.valor.length-1),
+            tipo: TIPO_DATO.CARACTER,
+            linea: _expresion.linea,
+            columna: _expresion.columna
+        }
+    }
+
     else if(_expresion.tipo === TIPO_VALOR.IDENTIFICADOR){
         const simbolo = _ambito.getSimbolo(_expresion.valor)
         if(simbolo!=null){

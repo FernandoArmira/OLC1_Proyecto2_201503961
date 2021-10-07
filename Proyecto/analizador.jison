@@ -14,11 +14,13 @@
 
 [0-9]+("."[0-9]+)?\b  return 'NUMBER'
 "clase"               return 'clase'
-"decimal"             return 'decimal'
-"cadena"              return 'cadena'
-"bandera"             return 'bandera'
+"double"             return 'decimal'
+"string"              return 'cadena'
+"boolean"             return 'bandera'
 "true"                return 'true'
 "false"               return 'false'
+"int"                 return 'intpr'
+"char"                return 'charpr'
 "cout"               return 'cout'
 "while"               return 'while'
 "exec"               return 'exec'
@@ -30,6 +32,7 @@
 "||"                   return 'or'
 "&&"                   return 'and'
 "=="                   return 'igualigual'
+"="                     return 'igual'
 "!="                   return 'diferente'
 "<="                   return 'menorigual'
 ">="                   return 'mayorigual'
@@ -53,9 +56,11 @@
 
 ([a-zA-Z])([a-zA-Z0-9_])* return 'identificador'
 ["\""]([^"\""])*["\""] return 'string'
+\'[^\']?\'             return 'caracter'
 
-<<EOF>>               return 'EOF'
-.                     return 'INVALID'
+<<EOF>>               return 'EOF';
+/*.                     return 'INVALID'*/
+.           {console.log('Error Lexico: '+yytext+' en la linea' + yylloc.first_line + ' en la columna '+yylloc.first_column); }
 
 /lex
 %{
@@ -110,12 +115,14 @@ AS_VAR: identificador menor menos EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsigna
 ;
 
 DEC_VAR: TIPO identificador ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, null, $1, this._$.first_line,this._$.first_column+1)}
-       | TIPO identificador menor menos EXPRESION ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, $5, $1, this._$.first_line,this._$.first_column+1)}
+       | TIPO identificador igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, $4, $1, this._$.first_line,this._$.first_column+1)}
 ;
 
 TIPO: decimal {$$ = TIPO_DATO.DECIMAL}
     | cadena {$$ = TIPO_DATO.CADENA}
     | bandera {$$ = TIPO_DATO.BANDERA}
+    | intpr {$$ = TIPO_DATO.ENTERO}
+    | charpr {$$ = TIPO_DATO.CARACTER}
 ;
 
 
@@ -141,6 +148,7 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | false {$$ = INSTRUCCION.nuevoValor($1, TIPO_VALOR.BANDERA, this._$.first_line,this._$.first_column+1)}
          | string {$$ = INSTRUCCION.nuevoValor($1, TIPO_VALOR.CADENA, this._$.first_line,this._$.first_column+1)}
          | identificador {$$ = INSTRUCCION.nuevoValor($1, TIPO_VALOR.IDENTIFICADOR, this._$.first_line,this._$.first_column+1)}
+         | caracter {$$ = INSTRUCCION.nuevoValor($1, TIPO_VALOR.CARACTER, this._$.first_line,this._$.first_column+1)}
 ;
 
 DEC_MET : identificador parA parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($1, null, $5, this._$.first_line,this._$.first_column+1)}
