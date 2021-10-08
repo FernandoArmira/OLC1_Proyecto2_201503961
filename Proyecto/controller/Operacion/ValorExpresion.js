@@ -10,6 +10,14 @@ function ValorExpresion(_expresion, _ambito){
             columna: _expresion.columna
         }
     }
+    else if(_expresion.tipo === TIPO_VALOR.ENTERO){
+        return {
+            valor: Number(_expresion.valor),
+            tipo: TIPO_DATO.ENTERO,
+            linea: _expresion.linea,
+            columna: _expresion.columna
+        }
+    }
     else if(_expresion.tipo === TIPO_VALOR.BANDERA){
         return {
             valor: _expresion.valor.toLowerCase()==='true' ? true: false,

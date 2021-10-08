@@ -55,16 +55,16 @@ function Declaracion(_instruccion, _ambito){
         if(_instruccion.valor != null){
             op = Operacion(_instruccion.valor, _ambito)
             tipo = op.tipo;
-            val = op.valor;
-            split1 = String(val).split(".")
+            //val = op.valor;
+            //split1 = String(val).split(".")
 
             //console.log(op)
             //console.log(split1.length)
-            if(tipo === TIPO_DATO.DECIMAL && split1.length === 1){
+            if(tipo === TIPO_DATO.ENTERO){
                 valor = op.valor;
             }
             else {
-                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo ENTERO ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.ENTERO+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
 
@@ -74,7 +74,7 @@ function Declaracion(_instruccion, _ambito){
         if(split2.length>1){
             for(var i=0;i<split2.length;i++){
 
-                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
+                const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
@@ -87,7 +87,7 @@ function Declaracion(_instruccion, _ambito){
         }
         else {
 
-        const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
+        const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
