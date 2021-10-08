@@ -55,8 +55,9 @@
 "E"                   return 'E'
 
 ([a-zA-Z])([a-zA-Z0-9_])* return 'identificador'
-["\""]([^"\""])*["\""] return 'string'
-\'[^\']?\'             return 'caracter'
+/*["\""]([^"\""])*["\""] return 'string'*/
+["\""]((.)*?\"?)*?["\""] return 'string'
+(\'(.)?\'?\')|(\'\\n\')|(\'\\\\\')|(\'\\\"\')|(\'\\t\')|(\'\\r\')|(\'\\u0000\')    return 'caracter'
 
 <<EOF>>               return 'EOF';
 /*.                     return 'INVALID'*/

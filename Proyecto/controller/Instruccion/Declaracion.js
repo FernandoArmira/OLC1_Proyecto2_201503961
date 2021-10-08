@@ -182,7 +182,7 @@ function Declaracion(_instruccion, _ambito){
     }
 
     else if(_instruccion.tipo_dato === TIPO_DATO.CARACTER){
-        var valor = ""
+        var valor = "\\u0000"
         if(_instruccion.valor != null){
             var op = Operacion(_instruccion.valor, _ambito)
             tipo = op.tipo;
