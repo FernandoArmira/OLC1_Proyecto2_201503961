@@ -7,7 +7,8 @@ const ValorExpresion = require("./ValorExpresion")
 function Aritmetica(_expresion, _ambito){
     //2+3+5+6+8+9
     if(_expresion.tipo === TIPO_VALOR.DECIMAL || _expresion.tipo === TIPO_VALOR.BANDERA ||
-        _expresion.tipo === TIPO_VALOR.CADENA || _expresion.tipo === TIPO_VALOR.IDENTIFICADOR){
+        _expresion.tipo === TIPO_VALOR.CADENA || _expresion.tipo === TIPO_VALOR.IDENTIFICADOR ||
+        _expresion.tipo === TIPO_VALOR.CARACTER || _expresion.tipo === TIPO_VALOR.ENTERO){
         return ValorExpresion(_expresion, _ambito)
     }
     else if(_expresion.tipo === TIPO_OPERACION.SUMA){// 2+6+7+2+9+10
@@ -19,12 +20,31 @@ function Aritmetica(_expresion, _ambito){
 }
 
 function suma(_opIzq, _opDer, _ambito){ 
+    //console.log(_opIzq.valor)
+    //console.log(_opDer.valor)
     const opIzq = Aritmetica(_opIzq,_ambito)
     const opDer = Aritmetica(_opDer,_ambito)
     const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
     if(tipoRes!=null){
         if(tipoRes === TIPO_DATO.DECIMAL){
-            const resultado = Number(opIzq.valor) + Number(opDer.valor);
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) + Number(num2);
+
             return{
                 valor: resultado,
                 tipo: tipoRes,
@@ -32,6 +52,34 @@ function suma(_opIzq, _opDer, _ambito){
                 columna: _opIzq.columna
             }
         }
+
+        else if(tipoRes === TIPO_DATO.ENTERO){
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) + Number(num2);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+
         else if(tipoRes === TIPO_DATO.CADENA){
             const resultado = opIzq.valor.toString() + opDer.valor.toString();
             return{
