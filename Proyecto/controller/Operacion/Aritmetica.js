@@ -17,6 +17,12 @@ function Aritmetica(_expresion, _ambito){
     else if(_expresion.tipo === TIPO_OPERACION.RESTA){// 2+6+7+2+9+10
         return resta(_expresion.opIzq, _expresion.opDer, _ambito)
     }
+    else if(_expresion.tipo === TIPO_OPERACION.MULTIPLICACION){
+        return multiplicacion(_expresion.opIzq, _expresion.opDer, _ambito)
+    }
+    else if(_expresion.tipo === TIPO_OPERACION.DIVISION){
+        return division(_expresion.opIzq, _expresion.opDer, _ambito)
+    }
 }
 
 function suma(_opIzq, _opDer, _ambito){ 
@@ -161,6 +167,146 @@ function resta(_opIzq, _opDer, _ambito){
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+'\nError semántico: no se puede realizar la operacion resta... Linea: '+_opIzq.linea+" Columna: "+_opIzq.columna,
+        tipo: null,
+        linea: _opIzq.linea,
+        columna: _opIzq.columna
+    }
+}
+
+function multiplicacion(_opIzq, _opDer, _ambito){
+    const opIzq = Aritmetica(_opIzq,_ambito)
+    const opDer = Aritmetica(_opDer,_ambito)
+    const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
+    //console.log(_opIzq.valor)
+    //console.log(_opDer.valor)
+    if(tipoRes!=null && _opIzq.valor!="true" && _opIzq.valor!="false" && _opDer.valor != "true" && _opDer.valor != "false"){
+        if(tipoRes === TIPO_DATO.DECIMAL){
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) * Number(num2);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+
+        else if(tipoRes === TIPO_DATO.ENTERO){
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) * Number(num2);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+    }
+    var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
+    return{
+        valor: respuesta+'\nError semántico: no se puede realizar la operacion multiplicacion... Linea: '+_opIzq.linea+" Columna: "+_opIzq.columna,
+        tipo: null,
+        linea: _opIzq.linea,
+        columna: _opIzq.columna
+    }
+}
+
+function division(_opIzq, _opDer, _ambito){
+    const opIzq = Aritmetica(_opIzq,_ambito)
+    const opDer = Aritmetica(_opDer,_ambito)
+    const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
+    //console.log(_opIzq.valor)
+    //console.log(_opDer.valor)
+    if(tipoRes!=null && _opIzq.valor!="true" && _opIzq.valor!="false" && _opDer.valor != "true" && _opDer.valor != "false" &&  _opDer.valor !=0){
+        if(tipoRes === TIPO_DATO.DECIMAL){
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) / Number(num2);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+
+        else if(tipoRes === TIPO_DATO.ENTERO){
+
+            num1 = opIzq.valor
+            num2 = opDer.valor
+
+            split1 = String(_opIzq.valor).split("\'")
+
+            if(split1.length > 1){
+                num1 = split1[1].charCodeAt(0)
+            }
+
+            split1 = String(_opDer.valor).split("\'")
+
+            if(split1.length > 1){
+                num2 = split1[1].charCodeAt(0)
+            }
+
+            const resultado = Number(num1) / Number(num2);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+    }
+    var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
+    return{
+        valor: respuesta+'\nError semántico: no se puede realizar la operacion division... Linea: '+_opIzq.linea+" Columna: "+_opIzq.columna,
         tipo: null,
         linea: _opIzq.linea,
         columna: _opIzq.columna

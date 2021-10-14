@@ -152,6 +152,12 @@ break;
 case 27:
 this.$= INSTRUCCION.nuevaOperacionBinaria($$[$0-2],$$[$0], TIPO_OPERACION.RESTA,this._$.first_line,this._$.first_column+1);
 break;
+case 28:
+this.$= INSTRUCCION.nuevaOperacionBinaria($$[$0-2],$$[$0], TIPO_OPERACION.MULTIPLICACION,this._$.first_line,this._$.first_column+1);
+break;
+case 29:
+this.$= INSTRUCCION.nuevaOperacionBinaria($$[$0-2],$$[$0], TIPO_OPERACION.DIVISION,this._$.first_line,this._$.first_column+1);
+break;
 case 33:
 this.$=$$[$0-1]
 break;
