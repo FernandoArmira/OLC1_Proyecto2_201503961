@@ -29,6 +29,9 @@ function Aritmetica(_expresion, _ambito){
     else if(_expresion.tipo === TIPO_OPERACION.MODULO){
         return modulo(_expresion.opIzq, _expresion.opDer, _ambito)
     }
+    else if(_expresion.tipo === TIPO_OPERACION.NEGACION){
+        return negacion(_expresion.opIzq, _expresion.opDer,_ambito)
+    }
 }
 
 function suma(_opIzq, _opDer, _ambito){ 
@@ -421,6 +424,52 @@ function modulo(_opIzq, _opDer, _ambito){
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+'\nError semántico: no se puede realizar la operacion potencia... Linea: '+_opIzq.linea+" Columna: "+_opIzq.columna,
+        tipo: null,
+        linea: _opIzq.linea,
+        columna: _opIzq.columna
+    }
+}
+
+function negacion(_opIzq,_opDer, _ambito){
+    const opIzq = Aritmetica(_opIzq,_ambito)
+    const opDer = Aritmetica(_opDer,_ambito)
+    const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
+
+    //console.log(_opIzq)
+    //console.log(_opDer)
+    
+    if(tipoRes!=null){
+        if(tipoRes === TIPO_DATO.DECIMAL){
+
+            num1 = opIzq.valor
+
+            const resultado = Number(num1) * (-1);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+
+        else if(tipoRes === TIPO_DATO.ENTERO){
+
+            num1 = opIzq.valor
+
+            const resultado = Number(num1) * (-1);
+
+            return{
+                valor: resultado,
+                tipo: tipoRes,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+        }
+    }
+    var respuesta = (opIzq.tipo===null ? opIzq.valor: "")//true+5+10+5
+    return{
+        valor: respuesta+'\nError semántico: no se puede realizar la operacion negacion... Linea: '+_opIzq.linea+" Columna: "+_opIzq.columna,
         tipo: null,
         linea: _opIzq.linea,
         columna: _opIzq.columna
