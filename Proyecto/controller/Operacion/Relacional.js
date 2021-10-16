@@ -34,9 +34,27 @@ function Relacional(_expresion, _ambito){
 function igualigual(_opIzq, _opDer, _ambito){
     const opIzq = Relacional(_opIzq, _ambito)
     const opDer = Relacional(_opDer, _ambito)
-    if(opIzq.tipo == opDer.tipo){ //1==1 true==false ...
+    //console.log(opIzq.tipo)
+    //console.log(opDer.tipo)
+    if(opIzq.tipo != 'BANDERA' &&  opIzq.tipo != 'CADENA' && opDer.tipo!= 'BANDERA' &&  opDer.tipo != 'CADENA'){ //1==1 true==false ...
         var resultado = false
-        if(opIzq.valor == opDer.valor){
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        split1 = String(_opIzq.valor).split("\'")
+
+        if(split1.length > 1){
+            val1 = split1[1].charCodeAt(0)
+        }
+
+        split1 = String(_opDer.valor).split("\'")
+
+        if(split1.length > 1){
+            val2 = split1[1].charCodeAt(0)
+        }
+
+        if(val1 == val2){
             resultado = true
         }
         return {
@@ -45,7 +63,41 @@ function igualigual(_opIzq, _opDer, _ambito){
             linea: _opIzq.linea,
             columna: _opIzq.columna
         }
+    }else if (opIzq.tipo == 'BANDERA' &&  opDer.tipo == 'BANDERA'){
+        var resultado = false
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 == val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
+    }else if (opIzq.tipo == 'CADENA' &&  opDer.tipo == 'CADENA'){
+        var resultado = false
+        
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 == val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
     }
+
+
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+ `\nError semántico: no se puede comparar el valor de tipo ${opIzq.tipo} \ncon el valor de tipo ${opDer.tipo}... Linea: +${_opIzq.linea}+" Columna: "+${_opIzq.columna}`,
@@ -54,12 +106,31 @@ function igualigual(_opIzq, _opDer, _ambito){
         columna: _opIzq.columna
     }
 }
+
 function diferente(_opIzq, _opDer, _ambito){
     const opIzq = Relacional(_opIzq, _ambito)
     const opDer = Relacional(_opDer, _ambito)
-    if(opIzq.tipo == opDer.tipo){ //1==1 true==false ...
+    //console.log(opIzq.tipo)
+    //console.log(opDer.tipo)
+    if(opIzq.tipo != 'BANDERA' &&  opIzq.tipo != 'CADENA' && opDer.tipo!= 'BANDERA' &&  opDer.tipo != 'CADENA'){ //1==1 true==false ...
         var resultado = false
-        if(opIzq.valor != opDer.valor){
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        split1 = String(_opIzq.valor).split("\'")
+
+        if(split1.length > 1){
+            val1 = split1[1].charCodeAt(0)
+        }
+
+        split1 = String(_opDer.valor).split("\'")
+
+        if(split1.length > 1){
+            val2 = split1[1].charCodeAt(0)
+        }
+
+        if(val1 != val2){
             resultado = true
         }
         return {
@@ -68,7 +139,41 @@ function diferente(_opIzq, _opDer, _ambito){
             linea: _opIzq.linea,
             columna: _opIzq.columna
         }
+    }else if (opIzq.tipo == 'BANDERA' &&  opDer.tipo == 'BANDERA'){
+        var resultado = false
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 != val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
+    }else if (opIzq.tipo == 'CADENA' &&  opDer.tipo == 'CADENA'){
+        var resultado = false
+        
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 != val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
     }
+
+
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+ `\nError semántico: no se puede comparar el valor de tipo ${opIzq.tipo} \ncon el valor de tipo ${opDer.tipo}... Linea: +${_opIzq.linea}+" Columna: "+${_opIzq.columna}`,
@@ -77,12 +182,32 @@ function diferente(_opIzq, _opDer, _ambito){
         columna: _opIzq.columna
     }
 }
+
+
 function menor(_opIzq, _opDer, _ambito){
     const opIzq = Relacional(_opIzq, _ambito)
     const opDer = Relacional(_opDer, _ambito)
-    if(opIzq.tipo == opDer.tipo && opIzq.tipo === TIPO_DATO.DECIMAL){ //1==1 true==false ...
+    //console.log(opIzq.tipo)
+    //console.log(opDer.tipo)
+    if(opIzq.tipo != 'BANDERA' &&  opIzq.tipo != 'CADENA' && opDer.tipo!= 'BANDERA' &&  opDer.tipo != 'CADENA'){ //1==1 true==false ...
         var resultado = false
-        if(opIzq.valor < opDer.valor){
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        split1 = String(_opIzq.valor).split("\'")
+
+        if(split1.length > 1){
+            val1 = split1[1].charCodeAt(0)
+        }
+
+        split1 = String(_opDer.valor).split("\'")
+
+        if(split1.length > 1){
+            val2 = split1[1].charCodeAt(0)
+        }
+
+        if(val1 < val2){
             resultado = true
         }
         return {
@@ -91,7 +216,24 @@ function menor(_opIzq, _opDer, _ambito){
             linea: _opIzq.linea,
             columna: _opIzq.columna
         }
+    }else if (opIzq.tipo == 'BANDERA' &&  opDer.tipo == 'BANDERA'){
+        var resultado = false
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 < val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
     }
+
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+ `\nError semántico: no se puede comparar el valor de tipo ${opIzq.tipo} \ncon el valor de tipo ${opDer.tipo}... Linea: +${_opIzq.linea}+" Columna: "+${_opIzq.columna}`,
@@ -100,12 +242,31 @@ function menor(_opIzq, _opDer, _ambito){
         columna: _opIzq.columna
     }
 }
+
 function mayor(_opIzq, _opDer, _ambito){
     const opIzq = Relacional(_opIzq, _ambito)
     const opDer = Relacional(_opDer, _ambito)
-    if(opIzq.tipo == opDer.tipo && opIzq.tipo === TIPO_DATO.DECIMAL){ //1==1 true==false ...
+    //console.log(opIzq.tipo)
+    //console.log(opDer.tipo)
+    if(opIzq.tipo != 'BANDERA' &&  opIzq.tipo != 'CADENA' && opDer.tipo!= 'BANDERA' &&  opDer.tipo != 'CADENA'){ //1==1 true==false ...
         var resultado = false
-        if(opIzq.valor > opDer.valor){
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        split1 = String(_opIzq.valor).split("\'")
+
+        if(split1.length > 1){
+            val1 = split1[1].charCodeAt(0)
+        }
+
+        split1 = String(_opDer.valor).split("\'")
+
+        if(split1.length > 1){
+            val2 = split1[1].charCodeAt(0)
+        }
+
+        if(val1 > val2){
             resultado = true
         }
         return {
@@ -114,7 +275,24 @@ function mayor(_opIzq, _opDer, _ambito){
             linea: _opIzq.linea,
             columna: _opIzq.columna
         }
+    }else if (opIzq.tipo == 'BANDERA' &&  opDer.tipo == 'BANDERA'){
+        var resultado = false
+
+        val1 = opIzq.valor
+        val2 = opDer.valor
+
+        if(val1 > val2){
+            resultado = true
+        }
+        return {
+            valor: resultado,
+            tipo: TIPO_DATO.BANDERA,
+            linea: _opIzq.linea,
+            columna: _opIzq.columna
+        }
+
     }
+
     var respuesta = (opIzq.tipo===null ? opIzq.valor: "")+(opDer.tipo===null ? opDer.valor: "") //true+5+10+5
     return{
         valor: respuesta+ `\nError semántico: no se puede comparar el valor de tipo ${opIzq.tipo} \ncon el valor de tipo ${opDer.tipo}... Linea: +${_opIzq.linea}+" Columna: "+${_opIzq.columna}`,
