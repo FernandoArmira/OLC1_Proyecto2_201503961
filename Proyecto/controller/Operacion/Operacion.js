@@ -22,7 +22,8 @@ function Operacion(_expresion, _ambito){
         || _expresion.tipo === TIPO_OPERACION.MENORIGUAL || _expresion.tipo === TIPO_OPERACION.MAYORIGUAL){
         return Relacional(_expresion, _ambito)
     }
-    else if(_expresion.tipo === TIPO_OPERACION.OR || _expresion.tipo === TIPO_OPERACION.AND){
+    else if(_expresion.tipo === TIPO_OPERACION.OR || _expresion.tipo === TIPO_OPERACION.AND
+        || _expresion.tipo === TIPO_OPERACION.NOT){
         return Logica(_expresion, _ambito)
     }
 }
