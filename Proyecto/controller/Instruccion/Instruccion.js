@@ -129,6 +129,24 @@ const Instruccion = {
             linea: _linea,
             columna: _columna
         }
+    },
+
+    nuevoIncremento: function(_id, _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.INCREMENTO,
+            id: _id,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+    nuevoDecremento: function(_id, _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.DECREMENTO,
+            id: _id,
+            linea: _linea,
+            columna: _columna
+        }
     }
 }
 

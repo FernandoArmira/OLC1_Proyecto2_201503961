@@ -3,6 +3,8 @@ const Operacion = require("../Operacion/Operacion");
 function Asignacion(_instruccion, _ambito){
     const id = _instruccion.id;
     const existe = _ambito.existeSimbolo(id)
+    //console.log(_instruccion)
+    //console.log(_ambito)
     if(existe){
         var valor = Operacion(_instruccion.expresion, _ambito)
         var simbolo = _ambito.getSimbolo(id)

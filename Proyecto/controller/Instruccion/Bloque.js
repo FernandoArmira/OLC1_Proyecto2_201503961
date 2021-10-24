@@ -6,6 +6,8 @@ const SentenciaIf = require("./If");
 const SentenciaIfElse = require("./IfElse");
 const SentenciaIfElseIf = require("./IfElseIf");
 const CicloWhile = require("./While");
+const Incremento = require("./Incremento")
+const Decremento = require("./Decremento")
 
 function Bloque(_instrucciones, _ambito){
     var cadena = ""
@@ -75,6 +77,19 @@ function Bloque(_instrucciones, _ambito){
             return {
                 hayBreak: hayBreak,
                 cadena: cadena
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.INCREMENTO){
+            var mensaje = Incremento(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+
+        else if(instruccion.tipo === TIPO_INSTRUCCION.DECREMENTO){
+            var mensaje = Decremento(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
             }
         }
     });

@@ -44,7 +44,9 @@
 "}"                   return 'llaveC'
 "*"                   return 'multi'
 "/"                   return 'div'
+"--"                  return 'decremento'
 "-"                   return 'menos'
+"++"                  return 'incremento'
 "+"                   return 'suma'
 "^"                   return 'exponente'
 "!"                   return 'not'
@@ -79,9 +81,11 @@
 %left 'igualigual' 'diferente' 'menor' 'menorigual' 'mayor' 'mayorigual'
 %left 'suma' 'menos'
 %left 'multi' 'div' 'modulo' 
-%left 'exponente'
+%left 'exponente' 
 
-%left umenos
+%left umenos 
+
+%right 'incremento' 'decremento'
 
 %start INICIO
 
@@ -98,6 +102,8 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_MET {$$=$1}
       | AS_VAR {$$=$1}
       | EXEC {$$=$1}
+      | INC_VAR ptcoma {$$=$1}
+      | DECR_VAR ptcoma {$$=$1}
 ;
 
 EXEC: exec identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($2, null, this._$.first_line,this._$.first_column+1)}
@@ -113,6 +119,12 @@ LISTAVALORES: LISTAVALORES coma EXPRESION {$1.push($3); $$=$1}
 ;
 
 AS_VAR: identificador igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsignacion($1, $3, this._$.first_line,this._$.first_column+1)}
+;
+
+INC_VAR: identificador incremento {$$= INSTRUCCION.nuevoIncremento($1,this._$.first_line,this._$.first_column+1);}
+;
+
+DECR_VAR: identificador decremento {$$= INSTRUCCION.nuevoDecremento($1,this._$.first_line,this._$.first_column+1);}
 ;
 
 DEC_VAR: TIPO identificador ptcoma {$$ = INSTRUCCION.nuevaDeclaracion($2, null, $1, this._$.first_line,this._$.first_column+1)}
@@ -150,6 +162,8 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | EXPRESION or EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3, TIPO_OPERACION.OR,this._$.first_line,this._$.first_column+1);}
          | EXPRESION and EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3, TIPO_OPERACION.AND,this._$.first_line,this._$.first_column+1);}
          | not EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($2,$2, TIPO_OPERACION.NOT,this._$.first_line,this._$.first_column+1);}
+         | EXPRESION incremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.INC,this._$.first_line,this._$.first_column+1);}
+         | EXPRESION decremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.DEC,this._$.first_line,this._$.first_column+1);}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
@@ -187,6 +201,8 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | LLAMADA_METODO {$$=$1}
             | IF {$$=$1}
             | BREAK {$$=$1}
+            | INC_VAR ptcoma {$$=$1}
+            | DECR_VAR ptcoma {$$=$1}
 ;
 
 IMPRIMIR: cout menor menor EXPRESION ptcoma{$$ = new INSTRUCCION.nuevoCout($4, this._$.first_line,this._$.first_column+1)}
