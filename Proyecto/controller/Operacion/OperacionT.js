@@ -5,7 +5,7 @@ const Logica = require("./Logica");
 const Relacional = require("./Relacional");
 const ValorExpresion = require("./ValorExpresion");
 
-function Operacion(_expresion, _ambito){
+function OperacionT(_expresion, _ambito){
     if(_expresion.tipo === TIPO_VALOR.DECIMAL || _expresion.tipo === TIPO_VALOR.BANDERA ||
         _expresion.tipo === TIPO_VALOR.CADENA || _expresion.tipo === TIPO_VALOR.IDENTIFICADOR ||
         _expresion.tipo === TIPO_VALOR.CARACTER || _expresion.tipo === TIPO_VALOR.ENTERO){
@@ -29,4 +29,4 @@ function Operacion(_expresion, _ambito){
     }
 }
 
-module.exports = Operacion
+module.exports = OperacionT

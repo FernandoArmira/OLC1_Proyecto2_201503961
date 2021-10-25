@@ -8,6 +8,17 @@ function nuevaOperacion(_opIzq, _opDer, _tipo, _linea, _columna){
         columna: _columna
     }
 }
+function nuevaOperacionT(_op1, _op2, _op3, _tipo, _linea, _columna){
+    return {
+        op1: _op1,
+        op2: _op2,
+        op3: _op3,
+        tipo: _tipo,
+        linea: _linea,
+        columna: _columna
+    }
+}
+
 const Instruccion = {
     nuevoCout: function(_expresion, _linea, _columna){
         return {
@@ -26,7 +37,12 @@ const Instruccion = {
         }
     },
     nuevaOperacionBinaria: function(_opIzq, _opDer, _tipo, _linea, _columna){
+        //console.log("A")
         return nuevaOperacion(_opIzq, _opDer, _tipo, _linea, _columna)
+    },
+    nuevaOperacionTernaria: function(_op1, _op2, _op3, _tipo, _linea, _columna){
+        //console.log("B")
+        return nuevaOperacionT(_op1, _op2, _op3, _tipo, _linea, _columna)
     },
     nuevaDeclaracion: function(_id, _valor, _tipo, _linea, _columna){
         return{

@@ -53,12 +53,14 @@
 "%"                   return 'modulo'
 "("                   return 'parA'
 ")"                   return 'parC'
+"?"                   return 'interrogacion'
+":"                   return 'dospuntos'
 "PI"                  return 'PI'
 "E"                   return 'E'
 
 ([a-zA-Z])([a-zA-Z0-9_])* return 'identificador'
 /*["\""]([^"\""])*["\""] return 'string'*/
-["\""]((.)*?(\\\")?)*?["\""] return 'string'
+(["\""]((.)*?(\\\")?)*?["\""])|((["\“"]|["\”"])((.)*?(\\\")?)*?(["\”"]|["\“"])) return 'string'
 (\'(.)?\'?\')|(\'\\n\')|(\'\\\\\')|(\'\\\"\')|(\'\\t\')|(\'\\r\')|(\'\\u0000\')    return 'caracter'
 
 <<EOF>>               return 'EOF';
@@ -75,6 +77,7 @@
 
 /* operator associations and precedence */
 
+%left 'interrogacion'
 %left 'or'
 %left 'and'
 %right 'not'
@@ -83,7 +86,7 @@
 %left 'multi' 'div' 'modulo' 
 %left 'exponente' 
 
-%left umenos 
+%left umenos
 
 %right 'incremento' 'decremento'
 
@@ -164,6 +167,7 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | not EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($2,$2, TIPO_OPERACION.NOT,this._$.first_line,this._$.first_column+1);}
          | EXPRESION incremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.INC,this._$.first_line,this._$.first_column+1);}
          | EXPRESION decremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.DEC,this._$.first_line,this._$.first_column+1);}
+         | EXPRESION interrogacion EXPRESION dospuntos EXPRESION {$$= INSTRUCCION.nuevaOperacionTernaria($1,$3,$5, TIPO_OPERACION.TERNARIO,this._$.first_line,this._$.first_column+1);}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
