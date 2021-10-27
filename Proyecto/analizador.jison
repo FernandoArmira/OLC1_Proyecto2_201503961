@@ -27,6 +27,9 @@
 "if"               return 'if'
 "break"               return 'break'
 "else"               return 'else'
+"switch"              return 'switch'
+"case"                return 'case'
+"default"             return 'default'
 
 
 "||"                   return 'or'
@@ -105,8 +108,6 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_MET {$$=$1}
       | AS_VAR {$$=$1}
       | EXEC {$$=$1}
-      | INC_VAR ptcoma {$$=$1}
-      | DECR_VAR ptcoma {$$=$1}
 ;
 
 EXEC: exec identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($2, null, this._$.first_line,this._$.first_column+1)}
@@ -207,6 +208,7 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | BREAK {$$=$1}
             | INC_VAR ptcoma {$$=$1}
             | DECR_VAR ptcoma {$$=$1}
+            | SWITCH {$$=$1}
 ;
 
 IMPRIMIR: cout menor menor EXPRESION ptcoma{$$ = new INSTRUCCION.nuevoCout($4, this._$.first_line,this._$.first_column+1)}
@@ -226,6 +228,21 @@ ELSEIF: ELSEIF CONEIF {$1.push($2); $$=$1;}
 ;
 
 CONEIF: else if parA EXPRESION parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoElseIf($4, $7 , this._$.first_line,this._$.first_column+1) }
+;
+
+SWITCH: switch parA EXPRESION parC llaveA CUERPOSWITCH DEFAULT llaveC {$$= new INSTRUCCION.nuevoSwitch($3, $6, $7, this._$.first_line,this._$.first_column+1)}
+      | switch parA EXPRESION parC llaveA CUERPOSWITCH llaveC {$$= new INSTRUCCION.nuevoSwitch($3, $6, null, this._$.first_line,this._$.first_column+1)}
+      | switch parA EXPRESION parC llaveA DEFAULT llaveC {$$= new INSTRUCCION.nuevoSwitch($3, null, $6, this._$.first_line,this._$.first_column+1)}
+; 
+
+CUERPOSWITCH: CUERPOSWITCH CONSWITCH {$1.push($2); $$=$1;}
+            | CONSWITCH {$$=[$1];}
+;
+
+CONSWITCH: case EXPRESION dospuntos OPCIONESMETODO {$$ = new INSTRUCCION.nuevoCase($2, $4 , this._$.first_line,this._$.first_column+1) }
+;
+
+DEFAULT: default dospuntos OPCIONESMETODO {$$ = $3}
 ;
 
 BREAK: break ptcoma {$$ = new INSTRUCCION.nuevoBreak(this._$.first_line,this._$.first_column+1)}

@@ -5,6 +5,7 @@ const Declaracion = require("./Declaracion");
 const SentenciaIf = require("./If");
 const SentenciaIfElse = require("./IfElse");
 const SentenciaIfElseIf = require("./IfElseIf");
+const Switch = require("./Switch");
 const CicloWhile = require("./While");
 const Incremento = require("./Incremento")
 const Decremento = require("./Decremento")
@@ -68,6 +69,14 @@ function Bloque(_instrucciones, _ambito){
             var ejec = SentenciaIfElseIf(instruccion, _ambito)
             var mensaje = ejec.cadena
             hayBreak = ejec.hayBreak
+            if(mensaje!=null){
+                cadena+=mensaje
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.SWITCH){
+            var ejec = Switch(instruccion, _ambito)
+            var mensaje = ejec.cadena
+            hayBreak = false
             if(mensaje!=null){
                 cadena+=mensaje
             }
