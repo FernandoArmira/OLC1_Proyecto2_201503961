@@ -23,6 +23,7 @@
 "char"                return 'charpr'
 "cout"               return 'cout'
 "while"               return 'while'
+"for"                 return 'for'
 "exec"               return 'exec'
 "if"               return 'if'
 "break"               return 'break'
@@ -30,6 +31,7 @@
 "switch"              return 'switch'
 "case"                return 'case'
 "default"             return 'default'
+"do"                  return 'do'
 
 
 "||"                   return 'or'
@@ -106,7 +108,7 @@ OPCIONESCUERPO: OPCIONESCUERPO CUERPO {$1.push($2); $$=$1;}
 
 CUERPO: DEC_VAR {$$=$1}
       | DEC_MET {$$=$1}
-      | AS_VAR {$$=$1}
+      | AS_VAR ptcoma {$$=$1}
       | EXEC {$$=$1}
 ;
 
@@ -122,7 +124,7 @@ LISTAVALORES: LISTAVALORES coma EXPRESION {$1.push($3); $$=$1}
             | EXPRESION {$$=[$1]}
 ;
 
-AS_VAR: identificador igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsignacion($1, $3, this._$.first_line,this._$.first_column+1)}
+AS_VAR: identificador igual EXPRESION {$$ = INSTRUCCION.nuevaAsignacion($1, $3, this._$.first_line,this._$.first_column+1)}
 ;
 
 INC_VAR: identificador incremento {$$= INSTRUCCION.nuevoIncremento($1,this._$.first_line,this._$.first_column+1);}
@@ -201,8 +203,10 @@ OPCIONESMETODO: OPCIONESMETODO CUERPOMETODO  {$1.push($2); $$=$1;}
 
 CUERPOMETODO: DEC_VAR {$$=$1}
             | WHILE {$$=$1}
+            | FOR {$$=$1}
+            | DOWHILE {$$=$1}
             | IMPRIMIR {$$=$1}
-            | AS_VAR {$$=$1}
+            | AS_VAR ptcoma {$$=$1}
             | LLAMADA_METODO {$$=$1}
             | IF {$$=$1}
             | BREAK {$$=$1}
@@ -215,6 +219,17 @@ IMPRIMIR: cout menor menor EXPRESION ptcoma{$$ = new INSTRUCCION.nuevoCout($4, t
 ;
 
 WHILE: while parA EXPRESION parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoWhile($3, $6 , this._$.first_line,this._$.first_column+1)}
+;
+
+FOR : for parA DEC_VAR EXPRESION ptcoma INC_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $4, $6, $9, this._$.first_line,this._$.first_column+1)}
+  | for parA DEC_VAR EXPRESION ptcoma DECR_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $4, $6, $9, this._$.first_line,this._$.first_column+1)}
+  | for parA AS_VAR ptcoma EXPRESION ptcoma INC_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $5, $7, $10, this._$.first_line,this._$.first_column+1)}
+  | for parA AS_VAR ptcoma EXPRESION ptcoma DECR_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $5, $7, $10, this._$.first_line,this._$.first_column+1)}
+  | for parA DEC_VAR EXPRESION ptcoma AS_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $4, $6, $9, this._$.first_line,this._$.first_column+1)}
+  | for parA AS_VAR ptcoma EXPRESION ptcoma AS_VAR parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoFor($3, $5, $7, $10, this._$.first_line,this._$.first_column+1)}
+;
+
+DOWHILE: do llaveA OPCIONESMETODO llaveC while parA EXPRESION parC ptcoma {$$ = new INSTRUCCION.nuevoDowhile($3, $7 , this._$.first_line,this._$.first_column+1)}
 ;
 
 IF: if parA EXPRESION parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoIf($3, $6 , this._$.first_line,this._$.first_column+1)}

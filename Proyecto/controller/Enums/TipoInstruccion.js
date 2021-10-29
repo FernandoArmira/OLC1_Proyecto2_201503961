@@ -14,7 +14,9 @@ const TIPO_INSTRUCCION = {
     INCREMENTO: 'INCREMENTO',
     DECREMENTO: 'DECREMENTO',
     SWITCH: 'SWITCH',
-    CASE: 'CASE'
+    CASE: 'CASE',
+    FOR: 'FOR',
+    DOWHILE: 'DOWHILE'
 }
 
 module.exports = TIPO_INSTRUCCION

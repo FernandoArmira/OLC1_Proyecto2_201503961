@@ -72,6 +72,26 @@ const Instruccion = {
             columna: _columna
         }
     },
+    nuevoFor: function(_expresion, _condicion, _actualizacion, _instrucciones, _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.FOR,
+            expresion: _expresion,
+            condicion: _condicion,
+            actualizacion: _actualizacion,
+            instrucciones: _instrucciones,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+    nuevoDowhile: function(_instrucciones, _expresion,_linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.DOWHILE,
+            instrucciones: _instrucciones,
+            expresion: _expresion,
+            linea: _linea,
+            columna: _columna
+        }
+    },
     nuevoMetodo: function(_nombre, _lista_parametros, _instrucciones, _linea, _columna){
         return {
             tipo: TIPO_INSTRUCCION.DEC_METODO,

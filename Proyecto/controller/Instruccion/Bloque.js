@@ -7,6 +7,8 @@ const SentenciaIfElse = require("./IfElse");
 const SentenciaIfElseIf = require("./IfElseIf");
 const Switch = require("./Switch");
 const CicloWhile = require("./While");
+const CicloFor = require("./For");
+const CicloDowhile = require("./Dowhile");
 const Incremento = require("./Incremento")
 const Decremento = require("./Decremento")
 
@@ -37,6 +39,20 @@ function Bloque(_instrucciones, _ambito){
         }
         else if(instruccion.tipo === TIPO_INSTRUCCION.WHILE){
             var mensaje = CicloWhile(instruccion, _ambito)
+            hayBreak = false
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.FOR){
+            var mensaje = CicloFor(instruccion, _ambito)
+            hayBreak = false
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.DOWHILE){
+            var mensaje = CicloDowhile(instruccion, _ambito)
             hayBreak = false
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
