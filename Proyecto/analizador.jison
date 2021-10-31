@@ -33,6 +33,9 @@
 "default"             return 'default'
 "do"                  return 'do'
 "void"                return 'void'
+"writeline"           return 'writeline'
+"tolower"             return 'tolower'
+"toupper"             return 'toupper'
 
 
 "||"                   return 'or'
@@ -172,6 +175,8 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | EXPRESION incremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.INC,this._$.first_line,this._$.first_column+1);}
          | EXPRESION decremento {$$= INSTRUCCION.nuevaOperacionBinaria($1,$1, TIPO_OPERACION.DEC,this._$.first_line,this._$.first_column+1);}
          | EXPRESION interrogacion EXPRESION dospuntos EXPRESION {$$= INSTRUCCION.nuevaOperacionTernaria($1,$3,$5, TIPO_OPERACION.TERNARIO,this._$.first_line,this._$.first_column+1);}
+         | toupper parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOUPPER,this._$.first_line,this._$.first_column+1);}
+         | tolower parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOLOWER,this._$.first_line,this._$.first_column+1);}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
@@ -216,7 +221,7 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | SWITCH {$$=$1}
 ;
 
-IMPRIMIR: cout menor menor EXPRESION ptcoma{$$ = new INSTRUCCION.nuevoCout($4, this._$.first_line,this._$.first_column+1)}
+IMPRIMIR: writeline parA EXPRESION parC ptcoma{$$ = new INSTRUCCION.nuevoCout($3, this._$.first_line,this._$.first_column+1)}
 ;
 
 WHILE: while parA EXPRESION parC llaveA OPCIONESMETODO llaveC {$$ = new INSTRUCCION.nuevoWhile($3, $6 , this._$.first_line,this._$.first_column+1)}

@@ -17,6 +17,8 @@ const TIPO_OPERACION = {
     NOT: 'NOT',
     INC: 'INC',
     DEC: 'DEC',
-    TERNARIO: 'TERNARIO'
+    TERNARIO: 'TERNARIO',
+    TOUPPER: 'TOUPPER',
+    TOLOWER: 'TOLOWER'
 }
 module.exports= TIPO_OPERACION;

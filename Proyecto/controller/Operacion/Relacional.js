@@ -14,7 +14,8 @@ function Relacional(_expresion, _ambito){
         || _expresion.tipo === TIPO_OPERACION.MULTIPLICACION || _expresion.tipo === TIPO_OPERACION.DIVISION
         || _expresion.tipo === TIPO_OPERACION.POTENCIA || _expresion.tipo === TIPO_OPERACION.MODULO
         || _expresion.tipo === TIPO_OPERACION.NEGACION || _expresion.tipo === TIPO_OPERACION.INC
-        || _expresion.tipo === TIPO_OPERACION.DEC){
+        || _expresion.tipo === TIPO_OPERACION.DEC || _expresion.tipo === TIPO_OPERACION.TOUPPER
+        || _expresion.tipo === TIPO_OPERACION.TOLOWER ){
         return Aritmetica(_expresion, _ambito)
     }
     else if(_expresion.tipo === TIPO_OPERACION.IGUALIGUAL){
