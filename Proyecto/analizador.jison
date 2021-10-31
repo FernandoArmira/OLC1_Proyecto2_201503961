@@ -36,6 +36,13 @@
 "writeline"           return 'writeline'
 "tolower"             return 'tolower'
 "toupper"             return 'toupper'
+"start"               return 'start'
+"with"                return 'with'
+"length"              return 'length'
+"truncate"            return 'truncate'
+"round"               return 'round'
+"typeof"              return 'typeof'
+"tostring"            return 'tostring'
 
 
 "||"                   return 'or'
@@ -116,8 +123,8 @@ CUERPO: DEC_VAR {$$=$1}
       | EXEC {$$=$1}
 ;
 
-EXEC: exec identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($2, null, this._$.first_line,this._$.first_column+1)}
-    | exec identificador parA LISTAVALORES parC ptcoma {$$ = INSTRUCCION.nuevoExec($2, $4, this._$.first_line,this._$.first_column+1)}
+EXEC: start with identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($3, null, this._$.first_line,this._$.first_column+1)}
+    | start with identificador parA LISTAVALORES parC ptcoma {$$ = INSTRUCCION.nuevoExec($3, $5, this._$.first_line,this._$.first_column+1)}
 ;
 
 LLAMADA_METODO: identificador parA parC ptcoma {$$ = INSTRUCCION.nuevaLlamada($1, null, this._$.first_line,this._$.first_column+1)}
@@ -177,6 +184,11 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | EXPRESION interrogacion EXPRESION dospuntos EXPRESION {$$= INSTRUCCION.nuevaOperacionTernaria($1,$3,$5, TIPO_OPERACION.TERNARIO,this._$.first_line,this._$.first_column+1);}
          | toupper parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOUPPER,this._$.first_line,this._$.first_column+1);}
          | tolower parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOLOWER,this._$.first_line,this._$.first_column+1);}
+         | length parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.LENGTH,this._$.first_line,this._$.first_column+1);}
+         | truncate parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TRUNCATE,this._$.first_line,this._$.first_column+1);}
+         | round parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.ROUND,this._$.first_line,this._$.first_column+1);}
+         | typeof parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TYPEOF,this._$.first_line,this._$.first_column+1);}
+         | tostring parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOSTRING,this._$.first_line,this._$.first_column+1);}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
