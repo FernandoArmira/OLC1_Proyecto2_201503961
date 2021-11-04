@@ -2,6 +2,7 @@ const TIPO_INSTRUCCION = require("../Enums/TipoInstruccion")
 const Asignacion = require("./Asignacion")
 const Declaracion = require("./Declaracion")
 const DecMetodo = require("./DecMetodo")
+const DecFuncion = require("./DecFuncion")
 const Exec = require("./Exec")
 
 function Global(_instrucciones, _ambito){
@@ -24,6 +25,7 @@ function Global(_instrucciones, _ambito){
     for(let i=0; i<_instrucciones.length; i++){
         if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DECLARACION){
             var mensaje = Declaracion(_instrucciones[i], _ambito)
+            
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
@@ -36,12 +38,19 @@ function Global(_instrucciones, _ambito){
         }
         else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_METODO){
             var mensaje = DecMetodo(_instrucciones[i], _ambito)
+            //console.log(_instrucciones[i])
+            //console.log(_ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_FUNCION){
+            var mensaje = DecFuncion(_instrucciones[i], _ambito)
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
         }
     }
-    //console.log(_ambito)
     for(let i=0; i<_instrucciones.length; i++){
         if(_instrucciones[i].tipo === TIPO_INSTRUCCION.EXEC){
             var mensaje = Exec(_instrucciones[i], _ambito)
@@ -52,6 +61,7 @@ function Global(_instrucciones, _ambito){
         }
     }
     //3ERA PASADA VAMOS A BUSCAR EL EXEC QUE VAMOS EJECUTAR
+    //console.log(_ambito)
     return cadena
 }
 

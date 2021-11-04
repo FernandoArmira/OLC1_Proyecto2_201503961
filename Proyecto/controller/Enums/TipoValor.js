@@ -4,7 +4,8 @@ const TIPO_VALOR={
     BANDERA:       'VAL_BANDERA',
     CARACTER:      'VAL_CARACTER',
     IDENTIFICADOR: 'VAL_IDENTIFICADOR',
-    ENTERO:        'VAL_ENTERO'
+    ENTERO:        'VAL_ENTERO',
+    VECTOR:        'VAL_VECTOR'
 }
 
 module.exports = TIPO_VALOR

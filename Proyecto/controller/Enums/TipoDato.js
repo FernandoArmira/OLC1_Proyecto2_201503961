@@ -3,7 +3,8 @@ const TIPO_DATO = {
     CADENA: 'CADENA',
     BANDERA: 'BANDERA',
     CARACTER: 'CARACTER',
-    ENTERO: 'ENTERO'
+    ENTERO: 'ENTERO',
+    VECTOR: 'VECTOR'
 }
 
 module.exports = TIPO_DATO

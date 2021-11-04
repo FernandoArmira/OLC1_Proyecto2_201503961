@@ -1,7 +1,7 @@
 
 function Incremento(_instruccion, _ambito){
     const id = _instruccion.id;
-    const existe = _ambito.existeSimbolo(id)
+    const existe = _ambito.existeSimboloAmbitoActual(id)
     //console.log(_instruccion)
     //console.log(_ambito)
     if(existe){

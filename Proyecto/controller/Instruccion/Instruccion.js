@@ -36,6 +36,15 @@ const Instruccion = {
             columna: _columna
         }
     },
+    nuevoValorVector:function(_valor,_indice, _tipo, _linea, _columna){
+        return{
+            valor: _valor,
+            indice: _indice,
+            tipo: _tipo,
+            linea: _linea,
+            columna: _columna
+        }
+    },
     nuevaOperacionBinaria: function(_opIzq, _opDer, _tipo, _linea, _columna){
         //console.log("A")
         return nuevaOperacion(_opIzq, _opDer, _tipo, _linea, _columna)
@@ -59,6 +68,28 @@ const Instruccion = {
             tipo: TIPO_INSTRUCCION.ASIGNACION,
             id: _id,
             expresion: _expresion,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+    nuevaDeclaracionVector: function(_tipo, _id, _tipo2, _valor, _linea, _columna){
+        return{
+            tipo: TIPO_INSTRUCCION.DEC_VECTOR,
+            tipov: _tipo,
+            id: _id,
+            tipov2: _tipo2,
+            valor: _valor,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+    nuevaAsignacionVector: function(_id, _expresion, _nuevovalor,  _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.AS_VECTOR,
+            id: _id,
+            indice: _expresion,
+            valor: _nuevovalor,
             linea: _linea,
             columna: _columna
         }
@@ -185,6 +216,21 @@ const Instruccion = {
             columna: _columna
         }
     },
+    nuevoContinue: function(_linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.CONTINUE,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+    nuevoReturn: function(_linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.RETURN,
+            linea: _linea,
+            columna: _columna
+        }
+    },
 
     nuevoIncremento: function(_id, _linea, _columna){
         return {
@@ -199,6 +245,26 @@ const Instruccion = {
         return {
             tipo: TIPO_INSTRUCCION.DECREMENTO,
             id: _id,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+    nuevaFuncion: function(_tipo, _nombre, _lista_parametros, _instrucciones, _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.DEC_FUNCION,
+            tipof: _tipo,
+            nombre: _nombre,
+            lista_parametros: _lista_parametros,
+            instrucciones: _instrucciones,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+    nuevaLlamadaFuncion: function(_nombre, _lista_valores, _linea, _columna){
+        return{
+            tipo: TIPO_INSTRUCCION.LLAMADA_FUNCION,
+            nombre: _nombre,
+            lista_valores: _lista_valores,
             linea: _linea,
             columna: _columna
         }

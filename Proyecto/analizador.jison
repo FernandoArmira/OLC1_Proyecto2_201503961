@@ -27,6 +27,8 @@
 "exec"               return 'exec'
 "if"               return 'if'
 "break"               return 'break'
+"continue"            return 'continue'
+"return"              return 'return'
 "else"               return 'else'
 "switch"              return 'switch'
 "case"                return 'case'
@@ -43,6 +45,7 @@
 "round"               return 'round'
 "typeof"              return 'typeof'
 "tostring"            return 'tostring'
+"new"                 return 'nuevo'
 
 
 "||"                   return 'or'
@@ -71,6 +74,8 @@
 ")"                   return 'parC'
 "?"                   return 'interrogacion'
 ":"                   return 'dospuntos'
+"["                   return 'corA'
+"]"                   return 'corC'
 "PI"                  return 'PI'
 "E"                   return 'E'
 
@@ -110,7 +115,7 @@
 
 %% /* language grammar */
 
-INICIO: clase identificador llaveA OPCIONESCUERPO llaveC EOF{return $4;}
+INICIO: OPCIONESCUERPO EOF{return $1;}
 ;
 
 OPCIONESCUERPO: OPCIONESCUERPO CUERPO {$1.push($2); $$=$1;}
@@ -121,6 +126,9 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_MET {$$=$1}
       | AS_VAR ptcoma {$$=$1}
       | EXEC {$$=$1}
+      | DEC_FUN {$$=$1}
+      | DEC_VEC {$$=$1}
+      | AS_VEC {$$=$1}
 ;
 
 EXEC: start with identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($3, null, this._$.first_line,this._$.first_column+1)}
@@ -134,6 +142,7 @@ LLAMADA_METODO: identificador parA parC ptcoma {$$ = INSTRUCCION.nuevaLlamada($1
 LISTAVALORES: LISTAVALORES coma EXPRESION {$1.push($3); $$=$1}
             | EXPRESION {$$=[$1]}
 ;
+
 
 AS_VAR: identificador igual EXPRESION {$$ = INSTRUCCION.nuevaAsignacion($1, $3, this._$.first_line,this._$.first_column+1)}
 ;
@@ -189,6 +198,7 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | round parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.ROUND,this._$.first_line,this._$.first_column+1);}
          | typeof parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TYPEOF,this._$.first_line,this._$.first_column+1);}
          | tostring parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOSTRING,this._$.first_line,this._$.first_column+1);}
+         | identificador corA EXPRESION corC {$$ = INSTRUCCION.nuevoValorVector($1,$3, TIPO_VALOR.VECTOR, this._$.first_line,this._$.first_column+1)}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
@@ -207,6 +217,11 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
 DEC_MET : void identificador parA parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($2, null, $6, this._$.first_line,this._$.first_column+1)}
         | void identificador parA LISTAPARAMETROS parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($2, $4, $7, this._$.first_line,this._$.first_column+1)}
 ;
+
+DEC_FUN : TIPO identificador parA parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevaFuncion($1, $2, null, $6, this._$.first_line,this._$.first_column+1)}
+        | TIPO identificador parA LISTAPARAMETROS parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($1, $2, $4, $7, this._$.first_line,this._$.first_column+1)}
+;
+
 
 LISTAPARAMETROS: LISTAPARAMETROS coma  PARAMETROS {$1.push($3); $$=$1;}
                | PARAMETROS {$$=[$1];}
@@ -231,6 +246,10 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | INC_VAR ptcoma {$$=$1}
             | DECR_VAR ptcoma {$$=$1}
             | SWITCH {$$=$1}
+            | CONTINUE {$$=$1}
+            | RETURN {$$=$1}
+            | DEC_VEC {$$=$1}
+            | AS_VEC {$$=$1}
 ;
 
 IMPRIMIR: writeline parA EXPRESION parC ptcoma{$$ = new INSTRUCCION.nuevoCout($3, this._$.first_line,this._$.first_column+1)}
@@ -279,4 +298,18 @@ DEFAULT: default dospuntos OPCIONESMETODO {$$ = $3}
 ;
 
 BREAK: break ptcoma {$$ = new INSTRUCCION.nuevoBreak(this._$.first_line,this._$.first_column+1)}
+;
+
+CONTINUE: continue ptcoma {$$ = new INSTRUCCION.nuevoContinue(this._$.first_line,this._$.first_column+1)}
+;
+
+RETURN: return ptcoma {$$ = new INSTRUCCION.nuevoReturn(this._$.first_line,this._$.first_column+1)}
+    | return EXPRESION
+;
+
+DEC_VEC: TIPO identificador corA corC igual nuevo TIPO corA EXPRESION corC ptcoma {$$ = INSTRUCCION.nuevaDeclaracionVector($1,$2,$7,$9,this._$.first_line,this._$.first_column+1)}
+      | TIPO identificador corA corC igual llaveA LISTAVALORES llaveC ptcoma {$$ = INSTRUCCION.nuevaDeclaracionVector($1,$2,null,$7,this._$.first_line,this._$.first_column+1)}
+;
+
+AS_VEC: identificador corA EXPRESION corC igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsignacionVector($1, $3, $6, this._$.first_line,this._$.first_column+1)}
 ;

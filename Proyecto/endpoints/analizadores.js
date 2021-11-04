@@ -11,13 +11,24 @@ module.exports=(parser, app)=>{
             const AmbitoGlobal = new Ambito(null)
             //var cadena = Bloque(ast, AmbitoGlobal)
             var cadena = Global(ast, AmbitoGlobal)
+
             var resultado = {
                 arbol: ast,
                 consola: cadena
             }
             res.send(resultado)
+            console.log(TablaSimbolos)
+            //console.log(TablaSimbolos[0][0])
         //} catch (error) {
             //res.send(error)
         //}
-    })
+
+    }),
+
+    TablaSimbolos =  new Array();
+
+    app.get('/simbolos',(res)=>{
+        res.send(TablaSimbolos)
+    });
+    
 }

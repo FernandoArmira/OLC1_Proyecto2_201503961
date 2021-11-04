@@ -13,6 +13,15 @@ function DecMetodo(_instruccion, _ambito){
     }
     //de lo contrario vamos a guardarlo
     _ambito.addMetodo(nuevoMetodo.id, nuevoMetodo)
+    Metodos =  new Array();
+    Metodos.push(_instruccion.nombre)
+    Metodos.push("Metodo")
+    Metodos.push("Void")
+    //Metodos.push(_ambito.anterior)
+    Metodos.push(_instruccion.linea)
+    Metodos.push(_instruccion.columna)
+    TablaSimbolos.push(Metodos)
+
     return null
 }
 

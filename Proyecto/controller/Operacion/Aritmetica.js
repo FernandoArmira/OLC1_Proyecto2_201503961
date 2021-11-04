@@ -519,7 +519,7 @@ function incremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  + 1;
 
-            const existe = _ambito.existeSimbolo(_opIzq.valor)
+            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -544,7 +544,7 @@ function incremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  + 1;
 
-            const existe = _ambito.existeSimbolo(_opIzq.valor)
+            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -589,7 +589,7 @@ function decremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  - 1;
 
-            const existe = _ambito.existeSimbolo(_opIzq.valor)
+            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -614,7 +614,7 @@ function decremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  - 1;
 
-            const existe = _ambito.existeSimbolo(_opIzq.valor)
+            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)

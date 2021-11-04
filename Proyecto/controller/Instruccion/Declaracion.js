@@ -4,6 +4,15 @@ const Operacion = require("../Operacion/Operacion");
 
 function Declaracion(_instruccion, _ambito){
     //console.log(_instruccion.id)
+    Variables =  new Array();
+    Variables.push(_instruccion.id)
+    Variables.push("Variable")
+    Variables.push(_instruccion.tipo_dato)
+    //Metodos.push(_ambito.anterior)
+    Variables.push(_instruccion.linea)
+    Variables.push(_instruccion.columna)
+    TablaSimbolos.push(Variables)
+
     if(_instruccion.tipo_dato === TIPO_DATO.DECIMAL){
         //console.log("decimal")
         var valor = 0.0
@@ -27,7 +36,7 @@ function Declaracion(_instruccion, _ambito){
             for(var i=0;i<split2.length;i++){
 
                 const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
-                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                     //Mandar mensaje a consola ......PENDIENTE
                 }
@@ -40,7 +49,7 @@ function Declaracion(_instruccion, _ambito){
         else {
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
-        if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
@@ -75,7 +84,7 @@ function Declaracion(_instruccion, _ambito){
             for(var i=0;i<split2.length;i++){
 
                 const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
-                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 else{
@@ -88,7 +97,7 @@ function Declaracion(_instruccion, _ambito){
         else {
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
-        if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
@@ -114,7 +123,7 @@ function Declaracion(_instruccion, _ambito){
 
                 //verificamos si ya existe
                 const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
-                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 else{
@@ -127,7 +136,7 @@ function Declaracion(_instruccion, _ambito){
         else {
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
-        if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
@@ -159,7 +168,7 @@ function Declaracion(_instruccion, _ambito){
 
                 //verificamos si ya existe
                 const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
-                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 else{
@@ -172,7 +181,7 @@ function Declaracion(_instruccion, _ambito){
         else {
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
-        if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
@@ -202,7 +211,7 @@ function Declaracion(_instruccion, _ambito){
 
                 //verificamos si ya existe
                 const nuevoSimbolo = new Simbolo(split2[i], valor, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
-                if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+                if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
                     "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 else{
@@ -215,7 +224,7 @@ function Declaracion(_instruccion, _ambito){
         else {
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
-        if(_ambito.existeSimbolo(nuevoSimbolo.id)!=false){
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)

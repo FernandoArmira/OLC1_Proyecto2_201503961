@@ -3,6 +3,7 @@ class Ambito {
         this.anterior = _anterior
         this.tablaSimbolos = new Map();
         this.tablaMetodos = new Map();
+        this.tablaFunciones = new Map();
     }
 
     addSimbolo(_s, _simbolo) {
@@ -19,6 +20,14 @@ class Ambito {
             if (encontrado != null) {
                 return encontrado
             }
+        }
+        return null
+    }
+
+    getSimboloAmbitoActual(_s) {
+        var encontrado = this.tablaSimbolos.get(_s.toLowerCase()) //hola<=>HoLA
+        if (encontrado != null) {
+            return encontrado
         }
         return null
     }
@@ -63,6 +72,29 @@ class Ambito {
             if (encontrado != null) {
                 e.tablaSimbolos.set(_s, _simbolo)
                 return true;
+            }
+        }
+        return false
+    }
+
+    addFuncion(_s, _funcion) {
+        this.tablaFunciones.set(_s.toLowerCase(), _funcion)
+    }
+
+    getFuncion(_s) { //(hola, clase simbolo)
+        for (let e = this; e != null; e = e.anterior) {
+            var encontrado = e.tablaFunciones.get(_s.toLowerCase()) //hola<=>HoLA
+            if (encontrado != null) {
+                return encontrado
+            }
+        }
+        return null
+    }
+    existeFuncion(_s) {
+        for (let e = this; e != null; e = e.anterior) {
+            var encontrado = e.tablaFunciones.get(_s.toLowerCase()) //hola<=>HoLA
+            if (encontrado != null) {
+                return true
             }
         }
         return false

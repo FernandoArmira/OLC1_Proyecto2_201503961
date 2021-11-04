@@ -33,6 +33,9 @@ function Exec(_instruccion, _ambito) {
                 if (ejec.hayBreak) {
                     mensaje += `Error: Se ha encontrado un break fuera de un ciclo`
                 }
+                if (ejec.hayContinue) {
+                    mensaje += `Error: Se ha encontrado un continue fuera de un ciclo`
+                }
                 return mensaje
                 //return Bloque(metodoEjecutar.instrucciones, nuevoAmbito) 
                 //return cadena;
@@ -42,12 +45,19 @@ function Exec(_instruccion, _ambito) {
             }
         }
         else {
+            //console.log(nuevoAmbito)
             var ejec = Bloque(metodoEjecutar.instrucciones, nuevoAmbito)
             var mensaje = ejec.cadena
             if (ejec.hayBreak) {
                 mensaje += `Error: Se ha encontrado un break fuera de un ciclo`
             }
+            if (ejec.hayContinue) {
+                mensaje += `Error: Se ha encontrado un continue fuera de un ciclo`
+            }
+            //console.log(mensaje)
+            //console.log(nuevoAmbito)
             return mensaje
+            
         }
     }
     return `Error: El método ${_instruccion.nombre} no existe... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`

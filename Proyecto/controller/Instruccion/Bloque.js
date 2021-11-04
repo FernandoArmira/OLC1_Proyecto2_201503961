@@ -11,14 +11,30 @@ const CicloFor = require("./For");
 const CicloDowhile = require("./Dowhile");
 const Incremento = require("./Incremento")
 const Decremento = require("./Decremento")
+const Declaracionvector = require("./DecVector")
+const Asignacionvector = require("./AsVector")
 
 function Bloque(_instrucciones, _ambito){
     var cadena = ""
     var hayBreak = false;
+    var hayContinue = false;
+    var hayReturn = false;
     _instrucciones.forEach(instruccion => {
         if(hayBreak){
             return{
                 hayBreak: hayBreak,
+                cadena: cadena
+            }
+        }
+        if(hayContinue){
+            return{
+                hayContinue: hayContinue,
+                cadena: cadena
+            }
+        }
+        if(hayReturn){
+            return{
+                hayReturn: hayReturn,
                 cadena: cadena
             }
         }
@@ -37,9 +53,23 @@ function Bloque(_instrucciones, _ambito){
                 cadena+=mensaje+'\n'
             }
         }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.DEC_VECTOR){
+            var mensaje = Declaracionvector(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.AS_VECTOR){
+            var mensaje = Asignacionvector(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
         else if(instruccion.tipo === TIPO_INSTRUCCION.WHILE){
             var mensaje = CicloWhile(instruccion, _ambito)
             hayBreak = false
+            hayContinue = false
+            hayReturn = ejec.hayReturn
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
@@ -47,6 +77,7 @@ function Bloque(_instrucciones, _ambito){
         else if(instruccion.tipo === TIPO_INSTRUCCION.FOR){
             var mensaje = CicloFor(instruccion, _ambito)
             hayBreak = false
+            hayContinue = false
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
@@ -54,11 +85,13 @@ function Bloque(_instrucciones, _ambito){
         else if(instruccion.tipo === TIPO_INSTRUCCION.DOWHILE){
             var mensaje = CicloDowhile(instruccion, _ambito)
             hayBreak = false
+            hayContinue = false
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
         }
         else if(instruccion.tipo === TIPO_INSTRUCCION.LLAMADA_METODO){
+            //console.log("Llamada metodo")
             const Exec = require("./Exec");
             var mensaje = Exec(instruccion, _ambito)
             if(mensaje!=null){
@@ -69,6 +102,7 @@ function Bloque(_instrucciones, _ambito){
             var ejec = SentenciaIf(instruccion, _ambito)
             var mensaje = ejec.cadena
             hayBreak = ejec.hayBreak
+            hayContinue = ejec.hayContinue
             if(mensaje!=null){
                 cadena+=mensaje
             }
@@ -77,6 +111,7 @@ function Bloque(_instrucciones, _ambito){
             var ejec = SentenciaIfElse(instruccion, _ambito)
             var mensaje = ejec.cadena
             hayBreak = ejec.hayBreak
+            hayContinue = ejec.hayContinue
             if(mensaje!=null){
                 cadena+=mensaje
             }
@@ -93,6 +128,7 @@ function Bloque(_instrucciones, _ambito){
             var ejec = Switch(instruccion, _ambito)
             var mensaje = ejec.cadena
             hayBreak = false
+            hayContinue = ejec.hayContinue
             if(mensaje!=null){
                 cadena+=mensaje
             }
@@ -101,6 +137,20 @@ function Bloque(_instrucciones, _ambito){
             hayBreak = true
             return {
                 hayBreak: hayBreak,
+                cadena: cadena
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.CONTINUE){
+            hayContinue = true
+            return {
+                hayContinue: hayContinue,
+                cadena: cadena
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.RETURN){
+            hayReturn = true
+            return {
+                hayReturn: hayReturn,
                 cadena: cadena
             }
         }
@@ -120,6 +170,8 @@ function Bloque(_instrucciones, _ambito){
     });
     return{
         hayBreak: hayBreak,
+        hayContinue: hayContinue,
+        hayReturn: hayReturn,
         cadena: cadena
     }
     //return cadena
