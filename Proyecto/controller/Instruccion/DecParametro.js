@@ -40,6 +40,15 @@ function DecParametro(_instruccion, _ambito){
             tipo = op.tipo;
             if(tipo === TIPO_DATO.ENTERO){
                 valor = op.valor;
+            }else if(tipo === TIPO_DATO.BANDERA){
+                valor = op.valor;
+                if(valor == true){
+                    valor = 1
+                }
+                if(valor == false){
+                    valor = 0
+                }
+                
             }
             else {
                 "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.ENTERO+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;

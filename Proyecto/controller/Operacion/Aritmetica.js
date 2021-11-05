@@ -8,7 +8,8 @@ function Aritmetica(_expresion, _ambito){
     //2+3+5+6+8+9
     if(_expresion.tipo === TIPO_VALOR.DECIMAL || _expresion.tipo === TIPO_VALOR.BANDERA ||
         _expresion.tipo === TIPO_VALOR.CADENA || _expresion.tipo === TIPO_VALOR.IDENTIFICADOR ||
-        _expresion.tipo === TIPO_VALOR.CARACTER || _expresion.tipo === TIPO_VALOR.ENTERO){
+        _expresion.tipo === TIPO_VALOR.CARACTER || _expresion.tipo === TIPO_VALOR.ENTERO ||
+        _expresion.tipo === TIPO_VALOR.VECTOR){
         return ValorExpresion(_expresion, _ambito)
     }
     else if(_expresion.tipo === TIPO_OPERACION.SUMA){// 2+6+7+2+9+10
