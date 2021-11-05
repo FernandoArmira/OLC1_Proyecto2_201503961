@@ -82,6 +82,26 @@ function ValorExpresion(_expresion, _ambito){
         }
 
     }
+
+    else if(_expresion.tipo === TIPO_VALOR.LISTA){
+        const simbolo = _ambito.getSimboloAmbitoActual(_expresion.valor)
+        if(simbolo!=null){
+            //console.log(_expresion.indice)
+            return {
+                valor: simbolo.valor[_expresion.indice.valor],
+                tipo: simbolo.tipo,
+                linea: simbolo.linea,
+                columna: simbolo.columna
+            }
+        }
+        return {
+            valor: "Error: la variable '"+_expresion.valor+"' no existe... Linea: "+_expresion.linea+" Columna: "+_expresion.columna,
+            tipo: null,
+            linea: _expresion.linea,
+            columna: _expresion.columna
+        }
+
+    }
 }
 
 module.exports = ValorExpresion

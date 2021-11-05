@@ -13,6 +13,9 @@ const Incremento = require("./Incremento")
 const Decremento = require("./Decremento")
 const Declaracionvector = require("./DecVector")
 const Asignacionvector = require("./AsVector")
+const Declaracionlista = require("./DecLista")
+const Asignacionlista = require("./AsLista")
+const Actualizarlista = require("./UpdLista")
 
 function Bloque(_instrucciones, _ambito){
     var cadena = ""
@@ -61,6 +64,24 @@ function Bloque(_instrucciones, _ambito){
         }
         else if(instruccion.tipo === TIPO_INSTRUCCION.AS_VECTOR){
             var mensaje = Asignacionvector(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.ADD_LISTA){
+            var mensaje = Asignacionlista(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.SET_LISTA){
+            var mensaje = Actualizarlista(instruccion, _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+        else if(instruccion.tipo === TIPO_INSTRUCCION.DEC_LISTA){
+            var mensaje = Declaracionlista(instruccion, _ambito)
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }

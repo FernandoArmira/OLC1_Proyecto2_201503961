@@ -45,6 +45,15 @@ const Instruccion = {
             columna: _columna
         }
     },
+    nuevoValorLista:function(_valor,_indice, _tipo, _linea, _columna){
+        return{
+            valor: _valor,
+            indice: _indice,
+            tipo: _tipo,
+            linea: _linea,
+            columna: _columna
+        }
+    },
     nuevaOperacionBinaria: function(_opIzq, _opDer, _tipo, _linea, _columna){
         //console.log("A")
         return nuevaOperacion(_opIzq, _opDer, _tipo, _linea, _columna)
@@ -94,6 +103,39 @@ const Instruccion = {
             columna: _columna
         }
     },
+
+    nuevaDeclaracionLista: function(_tipo, _id, _tipo2, _linea, _columna){
+        return{
+            tipo: TIPO_INSTRUCCION.DEC_LISTA,
+            tipov: _tipo,
+            id: _id,
+            tipov2: _tipo2,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+    nuevaAsignacionLista: function(_id, _expresion,  _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.ADD_LISTA,
+            id: _id,
+            expresion: _expresion,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+    nuevoUpdateLista: function(_id, _expresion, _nuevovalor, _linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.SET_LISTA,
+            id: _id,
+            expresion: _expresion,
+            valor: _nuevovalor,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
     nuevoWhile: function(_expresion, _instrucciones, _linea, _columna){
         return {
             tipo: TIPO_INSTRUCCION.WHILE,

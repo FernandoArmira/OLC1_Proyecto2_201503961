@@ -5,7 +5,8 @@ const TIPO_VALOR={
     CARACTER:      'VAL_CARACTER',
     IDENTIFICADOR: 'VAL_IDENTIFICADOR',
     ENTERO:        'VAL_ENTERO',
-    VECTOR:        'VAL_VECTOR'
+    VECTOR:        'VAL_VECTOR',
+    LISTA:         'VAL_LISTA'
 }
 
 module.exports = TIPO_VALOR

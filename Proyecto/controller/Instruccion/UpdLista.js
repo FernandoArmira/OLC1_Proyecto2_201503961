@@ -1,6 +1,6 @@
 const Operacion = require("../Operacion/Operacion");
 
-function Asignacionvector(_instruccion, _ambito){
+function Actualizarlista(_instruccion, _ambito){
     //console.log(_instruccion)
     
     const id = _instruccion.id;
@@ -9,12 +9,13 @@ function Asignacionvector(_instruccion, _ambito){
     //console.log(_ambito)
     if(existe){
         var valor = Operacion(_instruccion.valor, _ambito)
-        var indice = Operacion(_instruccion.indice, _ambito)
+        var indice = Operacion(_instruccion.expresion, _ambito)
         var simbolo = _ambito.getSimbolo(id)
         var tipos = {
             tipoSimbolo: simbolo.tipo,
             tipoNuevoValor: valor.tipo
         }
+        //console.log(indice.tipo)
         if(tipos.tipoSimbolo===tipos.tipoNuevoValor && indice.tipo === 'ENTERO'){
             simbolo.valor[indice.valor] = valor.valor
             _ambito.actualizar(id,simbolo)
@@ -26,4 +27,4 @@ function Asignacionvector(_instruccion, _ambito){
 
 }
 
-module.exports = Asignacionvector
+module.exports = Actualizarlista

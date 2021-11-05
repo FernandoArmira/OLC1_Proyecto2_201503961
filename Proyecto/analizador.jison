@@ -46,6 +46,10 @@
 "typeof"              return 'typeof'
 "tostring"            return 'tostring'
 "new"                 return 'nuevo'
+"dynamiclist"         return 'dynamiclist'
+"append"              return 'append'
+"getvalue"            return 'getvalue'
+"setvalue"            return 'setvalue'
 
 
 "||"                   return 'or'
@@ -135,6 +139,9 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_FUN {$$=$1}
       | DEC_VEC {$$=$1}
       | AS_VEC {$$=$1}
+      | DEC_LISTA {$$=$1}
+      | ADD_LISTA {$$=$1}
+      | UPD_LISTA {$$=$1}
       | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
       ErroresS =  new Array();
 ErroresS.push("Sintactico");
@@ -213,6 +220,7 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | typeof parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TYPEOF,this._$.first_line,this._$.first_column+1);}
          | tostring parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOSTRING,this._$.first_line,this._$.first_column+1);}
          | identificador corA EXPRESION corC {$$ = INSTRUCCION.nuevoValorVector($1,$3, TIPO_VALOR.VECTOR, this._$.first_line,this._$.first_column+1)}
+         | getvalue parA identificador coma EXPRESION parC {$$ = INSTRUCCION.nuevoValorLista($3,$5, TIPO_VALOR.LISTA, this._$.first_line,this._$.first_column+1)}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
@@ -264,6 +272,9 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | RETURN {$$=$1}
             | DEC_VEC {$$=$1}
             | AS_VEC {$$=$1}
+            | DEC_LISTA {$$=$1}
+            | ADD_LISTA {$$=$1}
+            | UPD_LISTA {$$=$1}
             | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
 ErroresS =  new Array();
 ErroresS.push("Sintactico");
@@ -333,4 +344,13 @@ DEC_VEC: TIPO identificador corA corC igual nuevo TIPO corA EXPRESION corC ptcom
 ;
 
 AS_VEC: identificador corA EXPRESION corC igual EXPRESION ptcoma {$$ = INSTRUCCION.nuevaAsignacionVector($1, $3, $6, this._$.first_line,this._$.first_column+1)}
+;
+
+DEC_LISTA: dynamiclist menor TIPO mayor identificador igual nuevo dynamiclist menor TIPO mayor ptcoma{$$ = INSTRUCCION.nuevaDeclaracionLista($3,$5,$10,this._$.first_line,this._$.first_column+1)}
+;
+
+ADD_LISTA: append parA identificador coma EXPRESION parC ptcoma {$$ = INSTRUCCION.nuevaAsignacionLista($3, $5, this._$.first_line,this._$.first_column+1)}
+;
+
+UPD_LISTA: setvalue parA identificador coma EXPRESION coma EXPRESION parC ptcoma {$$ = INSTRUCCION.nuevoUpdateLista($3, $5, $7, this._$.first_line,this._$.first_column+1)}
 ;
