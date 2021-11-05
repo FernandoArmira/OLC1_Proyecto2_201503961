@@ -4,6 +4,8 @@ const Global = require("../controller/Instruccion/Global")
 
 module.exports=(parser, app)=>{
     app.post('/analizar',(req,res)=>{
+        TablaSimbolos =  new Array();
+        TablaErrores = new Array();
         //var prueba = req.body.prueba
         var prueba = req.body.prueba.toLowerCase() //pasar todo a minuscula
         //try {
@@ -14,21 +16,24 @@ module.exports=(parser, app)=>{
 
             var resultado = {
                 arbol: ast,
-                consola: cadena
+                consola: cadena,
+                simbolos: TablaSimbolos,
+                errores: TablaErrores
             }
             res.send(resultado)
-            console.log(TablaSimbolos)
+            //console.log(TablaSimbolos)
             //console.log(TablaSimbolos[0][0])
+            //console.log(TablaErrores)
         //} catch (error) {
             //res.send(error)
         //}
 
-    }),
+    })
 
-    TablaSimbolos =  new Array();
-
-    app.get('/simbolos',(res)=>{
-        res.send(TablaSimbolos)
-    });
     
+/*
+    app.get('/simbolos',(req, res)=>{
+        res.send("TablaSimbolos")
+    });
+*/
 }

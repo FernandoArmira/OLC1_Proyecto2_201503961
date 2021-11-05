@@ -86,7 +86,13 @@
 
 <<EOF>>               return 'EOF';
 /*.                     return 'INVALID'*/
-.           {console.log('Error Lexico: '+yytext+' en la linea' + yylloc.first_line + ' en la columna '+yylloc.first_column); }
+.           {console.log('Error Lexico: '+yytext+' en la linea' + yylloc.first_line + ' en la columna '+yylloc.first_column); 
+ErroresL =  new Array();
+ErroresL.push("Lexico");
+ErroresL.push(yytext);
+ErroresL.push(yylloc.first_line);
+ErroresL.push(yylloc.first_column);
+TablaErrores.push(ErroresL);}
 
 /lex
 %{
@@ -129,6 +135,14 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_FUN {$$=$1}
       | DEC_VEC {$$=$1}
       | AS_VEC {$$=$1}
+      | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
+      ErroresS =  new Array();
+ErroresS.push("Sintactico");
+ErroresS.push(yytext);
+ErroresS.push(this._$.first_line);
+ErroresS.push(this._$.first_column);
+TablaErrores.push(ErroresS);
+      }
 ;
 
 EXEC: start with identificador parA parC ptcoma {$$ = INSTRUCCION.nuevoExec($3, null, this._$.first_line,this._$.first_column+1)}
@@ -250,6 +264,13 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | RETURN {$$=$1}
             | DEC_VEC {$$=$1}
             | AS_VEC {$$=$1}
+            | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
+ErroresS =  new Array();
+ErroresS.push("Sintactico");
+ErroresS.push(yytext);
+ErroresS.push(this._$.first_line);
+ErroresS.push(this._$.first_column);
+TablaErrores.push(ErroresS);}
 ;
 
 IMPRIMIR: writeline parA EXPRESION parC ptcoma{$$ = new INSTRUCCION.nuevoCout($3, this._$.first_line,this._$.first_column+1)}

@@ -19,4 +19,10 @@ export class AnalizarService {
     return this.http.post<any>(baseURL + 'analizar', codigo, httpOptions);
   }
 
+  /*
+  tablasimbolos(){
+    const url = "http://localhost:3000/simbolos";
+    return this.http.get(url);
+  }*/
+
 }

@@ -10,6 +10,7 @@ import {
   MonacoStandaloneCodeEditor
 } from '@materia-ui/ngx-monaco-editor';
 import { AnalizarService } from 'src/app/services/analizar/analizar.service';
+//import {SimbolosInterface} from "../../models/interface";
 
 @Component({
   selector: 'app-editor',
@@ -75,6 +76,10 @@ export class EditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  Tablasimbolos:[] = [];
+  Tablaerrores:[]=[];
+
+
   imprimir(){
     console.log(this.consola.value)
     console.log(this.editorTexto.value)
@@ -87,9 +92,25 @@ export class EditorComponent implements OnInit {
     this.analizarService.ejecutar(texto).subscribe((res:any)=>{
       console.log(res)
       this.consola.setValue(res.consola);
+      console.log(res.simbolos)
+      this.Tablasimbolos = res.simbolos
+      console.log(res.errores)
+      this.Tablaerrores = res.errores
+      //console.log(this.Tablasimbolos) 
     }, err=>{
       console.log(err)
     });
   }
+  
+
+  /*
+  mostrartablasimbolos(){
+    this.analizarService.tablasimbolos().subscribe((res:any)=>{
+      console.log(res);
+      //console.log(this.Usuarios[0].C2);
+    }, err=>{
+      console.log(err)
+    });
+  }*/
 
 }
