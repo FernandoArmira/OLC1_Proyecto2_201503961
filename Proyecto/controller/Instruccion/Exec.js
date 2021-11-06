@@ -4,6 +4,7 @@ const DecParametro = require("./DecParametro")
 const Instruccion = require("./Instruccion")
 
 function Exec(_instruccion, _ambito) {
+    //console.log(_instruccion)
     var cadena = ""
     var metodoEjecutar = _ambito.getMetodo(_instruccion.nombre)
     //console.log(metodoEjecutar.instrucciones)
@@ -16,6 +17,7 @@ function Exec(_instruccion, _ambito) {
                 //console.log("es un metodo con "+metodoEjecutar.lista_parametros.length+" parametros")
                 var error = false;
                 for (let i = 0; i < metodoEjecutar.lista_parametros.length; i++) {
+                    //console.log(metodoEjecutar.lista_parametros[i])
                     var declaracionAsignacion = Instruccion.nuevaDeclaracion(metodoEjecutar.lista_parametros[i].id, _instruccion.lista_valores[i], metodoEjecutar.lista_parametros[i].tipo_dato, _instruccion.linea, _instruccion.columna)
                     //console.log(declaracionAsignacion)
                     var mensaje = DecParametro(declaracionAsignacion, nuevoAmbito)

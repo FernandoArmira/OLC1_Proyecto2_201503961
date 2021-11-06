@@ -63,6 +63,7 @@ const Instruccion = {
         return nuevaOperacionT(_op1, _op2, _op3, _tipo, _linea, _columna)
     },
     nuevaDeclaracion: function(_id, _valor, _tipo, _linea, _columna){
+        //console.log(_id)
         return{
             tipo: TIPO_INSTRUCCION.DECLARACION,
             id: _id,

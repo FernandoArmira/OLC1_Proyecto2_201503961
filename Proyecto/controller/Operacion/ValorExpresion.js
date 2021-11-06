@@ -1,5 +1,6 @@
 const TIPO_DATO = require("../Enums/TipoDato");
 const TIPO_VALOR = require("../Enums/TipoValor");
+const Aritmetica = require("./Aritmetica");
 
 function ValorExpresion(_expresion, _ambito){
     if(_expresion.tipo === TIPO_VALOR.DECIMAL){
@@ -64,9 +65,19 @@ function ValorExpresion(_expresion, _ambito){
     }
     //IDENTIFICADOR
     else if(_expresion.tipo === TIPO_VALOR.VECTOR){
-        const simbolo = _ambito.getSimboloAmbitoActual(_expresion.valor)
+        const simbolo = _ambito.getSimbolo(_expresion.valor)
         if(simbolo!=null){
             //console.log(_expresion.indice)
+            if(_expresion.indice.tipo == 'VAL_IDENTIFICADOR'){
+                indice = _ambito.getSimbolo(_expresion.indice.valor)
+                return {
+                    valor: simbolo.valor[indice.valor],
+                    tipo: simbolo.tipo,
+                    linea: simbolo.linea,
+                    columna: simbolo.columna
+                }
+            }
+            
             return {
                 valor: simbolo.valor[_expresion.indice.valor],
                 tipo: simbolo.tipo,
@@ -84,9 +95,21 @@ function ValorExpresion(_expresion, _ambito){
     }
 
     else if(_expresion.tipo === TIPO_VALOR.LISTA){
-        const simbolo = _ambito.getSimboloAmbitoActual(_expresion.valor)
+        const simbolo = _ambito.getSimbolo(_expresion.valor)
+        //console.log(_expresion.indice)
+
         if(simbolo!=null){
-            //console.log(_expresion.indice)
+
+            if(_expresion.indice.tipo == 'VAL_IDENTIFICADOR'){
+                indice = _ambito.getSimbolo(_expresion.indice.valor)
+                return {
+                    valor: simbolo.valor[indice.valor],
+                    tipo: simbolo.tipo,
+                    linea: simbolo.linea,
+                    columna: simbolo.columna
+                }
+            }
+            
             return {
                 valor: simbolo.valor[_expresion.indice.valor],
                 tipo: simbolo.tipo,

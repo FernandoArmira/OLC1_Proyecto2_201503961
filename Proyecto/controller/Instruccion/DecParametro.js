@@ -3,6 +3,8 @@ const TIPO_DATO = require("../Enums/TipoDato");
 const Operacion = require("../Operacion/Operacion");
 
 function DecParametro(_instruccion, _ambito){
+
+    //console.log(_instruccion)
     
     Variables =  new Array();
     Variables.push(_instruccion.id)
@@ -30,10 +32,9 @@ function DecParametro(_instruccion, _ambito){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
-        //console.log(_ambito)
         return null
     }
-    if(_instruccion.tipo_dato === TIPO_DATO.ENTERO){
+    else if(_instruccion.tipo_dato === TIPO_DATO.ENTERO){
         var valor = 0
         if(_instruccion.valor != null){
             var op = Operacion(_instruccion.valor, _ambito)
@@ -59,6 +60,7 @@ function DecParametro(_instruccion, _ambito){
             return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+        //console.log(nuevoSimbolo)
         //console.log(_ambito)
         return null
     }
@@ -102,7 +104,7 @@ function DecParametro(_instruccion, _ambito){
         //console.log(_ambito)
     }
 
-    if(_instruccion.tipo_dato === TIPO_DATO.CARACTER){
+    else if(_instruccion.tipo_dato === TIPO_DATO.CARACTER){
         var valor = "\\u0000"
         if(_instruccion.valor != null){
             var op = Operacion(_instruccion.valor, _ambito)
@@ -122,6 +124,32 @@ function DecParametro(_instruccion, _ambito){
         //console.log(_ambito)
         return null
     }
+
+    if(_instruccion.tipo_dato === TIPO_DATO.LISTA){
+        //var valor = 0.0
+        if(_instruccion.valor != null){
+            var op = Operacion(_instruccion.valor, _ambito)
+            
+            tipo = op.tipo;
+            //console.log(op.valor)
+
+            if(Array.isArray(op.valor)){
+                valor = op.valor;
+            }
+    
+            else {
+                "Error: No es posible asignar el valor a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.LISTA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            }
+        }
+        const nuevoSimbolo = new Simbolo(_instruccion.id, valor, tipo, _instruccion.linea, _instruccion.columna)
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
+            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+        }
+        _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+        //console.log(nuevoSimbolo)
+        return null
+    }
+
 }
 
 module.exports = DecParametro

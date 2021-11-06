@@ -3,7 +3,7 @@ const TIPO_DATO = require("../Enums/TipoDato");
 const Operacion = require("../Operacion/Operacion");
 
 function Declaracion(_instruccion, _ambito){
-    //console.log(_instruccion.id)
+    //console.log(_instruccion)
     Variables =  new Array();
     Variables.push(_instruccion.id)
     Variables.push("Variable")
