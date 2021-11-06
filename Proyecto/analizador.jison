@@ -72,7 +72,7 @@
 "-"                   return 'menos'
 "++"                  return 'incremento'
 "+"                   return 'suma'
-"^"                   return 'exponente'
+("^")|("ˆ")          return 'exponente'
 "!"                   return 'not'
 "%"                   return 'modulo'
 "("                   return 'parA'
@@ -224,6 +224,8 @@ EXPRESION: EXPRESION suma EXPRESION {$$= INSTRUCCION.nuevaOperacionBinaria($1,$3
          | tostring parA EXPRESION parC {$$= INSTRUCCION.nuevaOperacionBinaria($3,$3, TIPO_OPERACION.TOSTRING,this._$.first_line,this._$.first_column+1);}
          | identificador corA EXPRESION corC {$$ = INSTRUCCION.nuevoValorVector($1,$3, TIPO_VALOR.VECTOR, this._$.first_line,this._$.first_column+1)}
          | getvalue parA identificador coma EXPRESION parC {$$ = INSTRUCCION.nuevoValorLista($3,$5, TIPO_VALOR.LISTA, this._$.first_line,this._$.first_column+1)}
+         | identificador parA LISTAVALORES parC {$$ = INSTRUCCION.nuevaLlamadaFuncion($1, $3, this._$.first_line,this._$.first_column+1)}
+         | identificador parA parC {$$ = INSTRUCCION.nuevaLlamadaFuncion($1, null, this._$.first_line,this._$.first_column+1)}
          | NUMBER {
            split1 = String($1).split(".");
            if(split1.length === 1){
@@ -243,8 +245,8 @@ DEC_MET : void identificador parA parC llaveA OPCIONESMETODO llaveC {$$ = INSTRU
         | void identificador parA LISTAPARAMETROS parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($2, $4, $7, this._$.first_line,this._$.first_column+1)}
 ;
 
-DEC_FUN : TIPO identificador parA parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevaFuncion($1, $2, null, $6, this._$.first_line,this._$.first_column+1)}
-        | TIPO identificador parA LISTAPARAMETROS parC llaveA OPCIONESMETODO llaveC {$$ = INSTRUCCION.nuevoMetodo($1, $2, $4, $7, this._$.first_line,this._$.first_column+1)}
+DEC_FUN : TIPO identificador parA parC llaveA OPCIONESMETODO return EXPRESION ptcoma llaveC {$$ = INSTRUCCION.nuevaFuncion($1, $2, null, $6, $7, this._$.first_line,this._$.first_column+1)}
+        | TIPO identificador parA LISTAPARAMETROS parC llaveA OPCIONESMETODO return EXPRESION ptcoma llaveC {$$ = INSTRUCCION.nuevaFuncion($1, $2, $4, $7, $8, this._$.first_line,this._$.first_column+1)}
 ;
 
 
@@ -341,7 +343,6 @@ CONTINUE: continue ptcoma {$$ = new INSTRUCCION.nuevoContinue(this._$.first_line
 ;
 
 RETURN: return ptcoma {$$ = new INSTRUCCION.nuevoReturn(this._$.first_line,this._$.first_column+1)}
-    | return EXPRESION
 ;
 
 DEC_VEC: TIPO identificador corA corC igual nuevo TIPO corA EXPRESION corC ptcoma {$$ = INSTRUCCION.nuevaDeclaracionVector($1,$2,$7,$9,this._$.first_line,this._$.first_column+1)}

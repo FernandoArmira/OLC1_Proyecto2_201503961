@@ -304,13 +304,14 @@ const Instruccion = {
             columna: _columna
         }
     },
-    nuevaFuncion: function(_tipo, _nombre, _lista_parametros, _instrucciones, _linea, _columna){
+    nuevaFuncion: function(_tipo, _nombre, _lista_parametros, _instrucciones, _retorno, _linea, _columna){
         return {
             tipo: TIPO_INSTRUCCION.DEC_FUNCION,
             tipof: _tipo,
             nombre: _nombre,
             lista_parametros: _lista_parametros,
             instrucciones: _instrucciones,
+            retorno: _retorno,
             linea: _linea,
             columna: _columna
         }

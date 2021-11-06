@@ -4,6 +4,7 @@ const Declaracion = require("./Declaracion")
 const DecMetodo = require("./DecMetodo")
 const DecFuncion = require("./DecFuncion")
 const Exec = require("./Exec")
+const { AS_VECTOR } = require("../Enums/TipoInstruccion")
 
 function Global(_instrucciones, _ambito){
     var cadena = ""
@@ -24,6 +25,13 @@ function Global(_instrucciones, _ambito){
     //2DA PASADA VAMOS A DECLARAR VARIABLES, METODOS Y ASIGNAR VALORES
     for(let i=0; i<_instrucciones.length; i++){
         if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DECLARACION){
+            Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Declaracion variable ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++
+
             var mensaje = Declaracion(_instrucciones[i], _ambito)
             
             if(mensaje!=null){
@@ -31,12 +39,26 @@ function Global(_instrucciones, _ambito){
             }
         }
         else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.ASIGNACION){
+            Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Asignacion variable ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++
+
             var mensaje = Asignacion(_instrucciones[i], _ambito)
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
             }
         }
         else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_METODO){
+            Temporal =  new Array();
+            Temporal.push("Nodo"+contador) 
+            Temporal.push('Declaracion metodo ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++
+
             var mensaje = DecMetodo(_instrucciones[i], _ambito)
             //console.log(_instrucciones[i])
             //console.log(_ambito)
@@ -45,6 +67,13 @@ function Global(_instrucciones, _ambito){
             }
         }
         else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_FUNCION){
+            Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Declaracion funcion ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++
+
             var mensaje = DecFuncion(_instrucciones[i], _ambito)
             if(mensaje!=null){
                 cadena+=mensaje+'\n'
@@ -53,12 +82,21 @@ function Global(_instrucciones, _ambito){
     }
     for(let i=0; i<_instrucciones.length; i++){
         if(_instrucciones[i].tipo === TIPO_INSTRUCCION.EXEC){
+            Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Exec ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            padre = "Nodo" + contador
+            contador++
+
             var mensaje = Exec(_instrucciones[i], _ambito)
             if(mensaje!=null){
                 cadena+=mensaje
             }
             break
         }
+
     }
     //3ERA PASADA VAMOS A BUSCAR EL EXEC QUE VAMOS EJECUTAR
     //console.log(_ambito)

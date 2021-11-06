@@ -101,7 +101,14 @@ export class EditorComponent implements OnInit {
       console.log(err)
     });
   }
+
+  nuevo(){
+    this.editorTexto.setValue("");
+  }
   
+  abrir(){
+    
+  }
 
   /*
   mostrartablasimbolos(){

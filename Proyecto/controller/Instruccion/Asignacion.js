@@ -1,6 +1,28 @@
 const Operacion = require("../Operacion/Operacion");
 
 function Asignacion(_instruccion, _ambito){
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Asignacion')
+    Temporal.push(padre)
+    ASTdiagrama.push(Temporal)
+    contador++
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Variable')
+    Temporal.push("Nodo" + (contador -1))
+    ASTdiagrama.push(Temporal)
+    contador++
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Expresion')
+    Temporal.push("Nodo" + (contador -2))
+    ASTdiagrama.push(Temporal)
+    contador++
+
     const id = _instruccion.id;
     const existe = _ambito.existeSimbolo(id)
     //console.log(_instruccion)

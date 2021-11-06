@@ -13,8 +13,30 @@ function Declaracion(_instruccion, _ambito){
     Variables.push(_instruccion.columna)
     TablaSimbolos.push(Variables)
 
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Declaracion')
+    Temporal.push(padre)
+    ASTdiagrama.push(Temporal)
+    contador++
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Variable')
+    Temporal.push("Nodo" + (contador -1))
+    ASTdiagrama.push(Temporal)
+    contador++
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Expresion')
+    Temporal.push("Nodo" + (contador -2))
+    ASTdiagrama.push(Temporal)
+    contador++
+
     if(_instruccion.tipo_dato === TIPO_DATO.DECIMAL){
         //console.log("decimal")
+        
         var valor = 0.0
         if(_instruccion.valor != null){
             op = Operacion(_instruccion.valor, _ambito)

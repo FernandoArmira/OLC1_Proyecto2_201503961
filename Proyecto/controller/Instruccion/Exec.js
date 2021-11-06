@@ -20,6 +20,24 @@ function Exec(_instruccion, _ambito) {
                     //console.log(metodoEjecutar.lista_parametros[i])
                     var declaracionAsignacion = Instruccion.nuevaDeclaracion(metodoEjecutar.lista_parametros[i].id, _instruccion.lista_valores[i], metodoEjecutar.lista_parametros[i].tipo_dato, _instruccion.linea, _instruccion.columna)
                     //console.log(declaracionAsignacion)
+                    
+                    //ASTdiagrama.push('Declaracion parametros ' + _instruccion.nombre)
+
+                    Temporal =  new Array();
+                    Temporal.push("Nodo" + contador) 
+                    Temporal.push('Declaracion parametros')
+                    Temporal.push(padre)
+                    ASTdiagrama.push(Temporal)
+                    contador++
+
+                    Temporal =  new Array();
+                    Temporal.push("Nodo" + contador) 
+                    Temporal.push('Instrucciones')
+                    Temporal.push(padre)
+                    ASTdiagrama.push(Temporal)
+                    padre = "Nodo" + contador
+                    contador++
+
                     var mensaje = DecParametro(declaracionAsignacion, nuevoAmbito)
                     if (mensaje != null) {
                         error = true
@@ -48,6 +66,14 @@ function Exec(_instruccion, _ambito) {
         }
         else {
             //console.log(nuevoAmbito)
+            Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Instrucciones')
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            padre = "Nodo" + contador
+            contador++
+
             var ejec = Bloque(metodoEjecutar.instrucciones, nuevoAmbito)
             var mensaje = ejec.cadena
             if (ejec.hayBreak) {
@@ -61,6 +87,7 @@ function Exec(_instruccion, _ambito) {
             return mensaje
             
         }
+        
     }
     return `Error: El método ${_instruccion.nombre} no existe... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`
 }

@@ -7,6 +7,7 @@ const Incremento = require("./Incremento");
 const Decremento = require("./Decremento");
 
 function For(_instruccion, _ambito){  
+    //console.log(_instruccion)
     var mensaje = ""
     //console.log(_instruccion)
     //console.log(_instruccion.expresion.tipo)
@@ -37,7 +38,7 @@ function For(_instruccion, _ambito){
             if(_instruccion.actualizacion.tipo == 'INCREMENTO'){
                 inc = Incremento(_instruccion.actualizacion, _ambito)
             }else if(_instruccion.actualizacion.tipo == 'DECREMENTO'){
-                inc = Incremento(_instruccion.actualizacion, _ambito)
+                inc = Decremento(_instruccion.actualizacion, _ambito)
             }else if(_instruccion.actualizacion.tipo == 'ASIGNACION'){
                 inc = Asignacion(_instruccion.actualizacion, _ambito)
             }

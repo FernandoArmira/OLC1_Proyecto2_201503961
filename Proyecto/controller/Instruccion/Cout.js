@@ -2,6 +2,14 @@ const procesarCadena = require("../Operacion/procesarCadena")
 
 function Cout(_instruccion, _ambito){
     //console.log(_instruccion)
+
+    Temporal =  new Array();
+    Temporal.push("Nodo" + contador) 
+    Temporal.push('Imprimir')
+    Temporal.push(padre)
+    ASTdiagrama.push(Temporal)
+    contador++
+
     const cadena = procesarCadena(_instruccion.expresion, _ambito).valor
     //console.log(cadena)
     var imprimir = cadena

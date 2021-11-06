@@ -13,6 +13,7 @@ function DecFuncion(_instruccion, _ambito){
     }
     //de lo contrario vamos a guardarlo
     _ambito.addFuncion(nuevaFuncion.id, nuevaFuncion)
+
     Funciones =  new Array();
     Funciones.push(_instruccion.nombre)
     Funciones.push("Funcion")
@@ -21,6 +22,7 @@ function DecFuncion(_instruccion, _ambito){
     Funciones.push(_instruccion.linea)
     Funciones.push(_instruccion.columna)
     TablaSimbolos.push(Funciones)
+    
     return null
 }
 
