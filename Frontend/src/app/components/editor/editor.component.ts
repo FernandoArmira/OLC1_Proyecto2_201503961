@@ -110,6 +110,14 @@ export class EditorComponent implements OnInit {
     
   }
 
+  guardar(){
+
+  }
+
+  ast(){
+    
+  }
+
   /*
   mostrartablasimbolos(){
     this.analizarService.tablasimbolos().subscribe((res:any)=>{

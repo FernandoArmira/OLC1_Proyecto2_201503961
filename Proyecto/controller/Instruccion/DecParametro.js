@@ -125,7 +125,33 @@ function DecParametro(_instruccion, _ambito){
         return null
     }
 
-    if(_instruccion.tipo_dato === TIPO_DATO.LISTA){
+    else if(_instruccion.tipo_dato === TIPO_DATO.LISTA){
+        //var valor = 0.0
+        if(_instruccion.valor != null){
+            var op = Operacion(_instruccion.valor, _ambito)
+            
+            tipo = op.tipo;
+            //console.log(op.valor)
+            //console.log(tipo)
+
+            if(Array.isArray(op.valor)){
+                valor = op.valor;
+            }
+    
+            else {
+                "Error: No es posible asignar el valor a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.LISTA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            }
+        }
+        const nuevoSimbolo = new Simbolo(_instruccion.id, valor, tipo, _instruccion.linea, _instruccion.columna)
+        if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
+            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+        }
+        _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
+        //console.log(nuevoSimbolo)
+        return null
+    }
+
+    else if(_instruccion.tipo_dato === TIPO_DATO.VECTOR){
         //var valor = 0.0
         if(_instruccion.valor != null){
             var op = Operacion(_instruccion.valor, _ambito)
@@ -138,7 +164,7 @@ function DecParametro(_instruccion, _ambito){
             }
     
             else {
-                "Error: No es posible asignar el valor a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.LISTA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                "Error: No es posible asignar el valor a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.VECTOR+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, tipo, _instruccion.linea, _instruccion.columna)

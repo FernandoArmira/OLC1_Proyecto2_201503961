@@ -192,6 +192,7 @@ TIPO: decimal {$$ = TIPO_DATO.DECIMAL}
     | intpr {$$ = TIPO_DATO.ENTERO}
     | charpr {$$ = TIPO_DATO.CARACTER}
     | dynamiclist {$$ = TIPO_DATO.LISTA}
+    | corA corC {$$ = TIPO_DATO.VECTOR}
 ;
 
 
@@ -256,6 +257,7 @@ LISTAPARAMETROS: LISTAPARAMETROS coma  PARAMETROS {$1.push($3); $$=$1;}
 
 PARAMETROS: TIPO identificador {$$ = INSTRUCCION.nuevaDeclaracion($2, null, $1, this._$.first_line,this._$.first_column+1)}
       | TIPO menor TIPO mayor identificador {$$ = INSTRUCCION.nuevaDeclaracion($5, null, $1, this._$.first_line,this._$.first_column+1)}
+      | TIPO TIPO identificador {$$ = INSTRUCCION.nuevaDeclaracion($3, null, $2, this._$.first_line,this._$.first_column+1)}
 ;
 
 OPCIONESMETODO: OPCIONESMETODO CUERPOMETODO  {$1.push($2); $$=$1;}

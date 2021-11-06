@@ -1,6 +1,7 @@
 const TIPO_DATO = require("../Enums/TipoDato");
 const TIPO_VALOR = require("../Enums/TipoValor");
 const Aritmetica = require("./Aritmetica");
+const Operacion = require("./Operacion");
 
 function ValorExpresion(_expresion, _ambito){
     if(_expresion.tipo === TIPO_VALOR.DECIMAL){
@@ -55,6 +56,37 @@ function ValorExpresion(_expresion, _ambito){
                 columna: simbolo.columna
             }
         }
+
+        else if(_expresion.indice.tipo == 'SUMA'){
+            idindice = _ambito.getSimbolo(_expresion.indice.opIzq.valor)
+            indiceb = _expresion.indice.opDer.valor
+
+            indice = idindice.valor + indiceb
+            //console.log(indice)
+            
+            return {
+                valor: simbolo.valor[indice],
+                tipo: simbolo.tipo,
+                linea: simbolo.linea,
+                columna: simbolo.columna
+            }
+        }
+
+        else if(_expresion.indice.tipo == 'RESTA'){
+            idindice = _ambito.getSimbolo(_expresion.indice.opIzq.valor)
+            indiceb = _expresion.indice.opDer.valor
+
+            indice = idindice.valor - indiceb
+            //console.log(indice)
+            
+            return {
+                valor: simbolo.valor[indice],
+                tipo: simbolo.tipo,
+                linea: simbolo.linea,
+                columna: simbolo.columna
+            }
+        }
+
         return {
             valor: "Error: la variable '"+_expresion.valor+"' no existe... Linea: "+_expresion.linea+" Columna: "+_expresion.columna,
             tipo: null,
@@ -72,6 +104,36 @@ function ValorExpresion(_expresion, _ambito){
                 indice = _ambito.getSimbolo(_expresion.indice.valor)
                 return {
                     valor: simbolo.valor[indice.valor],
+                    tipo: simbolo.tipo,
+                    linea: simbolo.linea,
+                    columna: simbolo.columna
+                }
+            }
+
+            else if(_expresion.indice.tipo == 'SUMA'){
+                idindice = _ambito.getSimbolo(_expresion.indice.opIzq.valor)
+                indiceb = _expresion.indice.opDer.valor
+
+                indice = idindice.valor + indiceb
+                //console.log(indice)
+                
+                return {
+                    valor: simbolo.valor[indice],
+                    tipo: simbolo.tipo,
+                    linea: simbolo.linea,
+                    columna: simbolo.columna
+                }
+            }
+
+            else if(_expresion.indice.tipo == 'RESTA'){
+                idindice = _ambito.getSimbolo(_expresion.indice.opIzq.valor)
+                indiceb = _expresion.indice.opDer.valor
+
+                indice = idindice.valor - indiceb
+                //console.log(indice)
+                
+                return {
+                    valor: simbolo.valor[indice],
                     tipo: simbolo.tipo,
                     linea: simbolo.linea,
                     columna: simbolo.columna

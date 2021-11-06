@@ -3,6 +3,9 @@ const Asignacion = require("./Asignacion")
 const Declaracion = require("./Declaracion")
 const DecMetodo = require("./DecMetodo")
 const DecFuncion = require("./DecFuncion")
+const DecVector = require("./DecVector")
+const AsVector = require("./AsVector")
+const DecLista = require("./DecLista")
 const Exec = require("./Exec")
 const { AS_VECTOR } = require("../Enums/TipoInstruccion")
 
@@ -79,6 +82,49 @@ function Global(_instrucciones, _ambito){
                 cadena+=mensaje+'\n'
             }
         }
+
+        else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_VECTOR){
+            /*Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Declaracion funcion ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++*/
+
+            var mensaje = DecVector(_instrucciones[i], _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+
+        else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.AS_VECTOR){
+            /*Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Asignacion variable ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++*/
+
+            var mensaje = AsVector(_instrucciones[i], _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+
+        else if(_instrucciones[i].tipo === TIPO_INSTRUCCION.DEC_LISTA){
+            /*Temporal =  new Array();
+            Temporal.push("Nodo" + contador) 
+            Temporal.push('Declaracion funcion ' + _instrucciones[i].nombre)
+            Temporal.push(padre)
+            ASTdiagrama.push(Temporal)
+            contador++*/
+
+            var mensaje = DecLista(_instrucciones[i], _ambito)
+            if(mensaje!=null){
+                cadena+=mensaje+'\n'
+            }
+        }
+
     }
     for(let i=0; i<_instrucciones.length; i++){
         if(_instrucciones[i].tipo === TIPO_INSTRUCCION.EXEC){
