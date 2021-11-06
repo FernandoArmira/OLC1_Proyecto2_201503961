@@ -45,7 +45,7 @@ function ValorExpresion(_expresion, _ambito){
     }
 
     else if(_expresion.tipo === TIPO_VALOR.IDENTIFICADOR){
-        const simbolo = _ambito.getSimboloAmbitoActual(_expresion.valor)
+        const simbolo = _ambito.getSimbolo(_expresion.valor)
         if(simbolo!=null){
             return {
                 valor: simbolo.valor,

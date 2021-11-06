@@ -1,6 +1,6 @@
 function Decremento(_instruccion, _ambito){
     const id = _instruccion.id;
-    const existe = _ambito.existeSimboloAmbitoActual(id)
+    const existe = _ambito.existeSimbolo(id)
     //console.log(_instruccion)
     //console.log(_ambito)
     if(existe){
@@ -17,9 +17,9 @@ function Decremento(_instruccion, _ambito){
             _ambito.actualizar(id,simbolo)
             return null
         }
-        return "Error: No es posible incrementar un valor de tipo "+ simbolo.tipo;
+        return "\n Error: No es posible incrementar un valor de tipo "+ simbolo.tipo;
     }
-    return `Error: la variable '${String(id)}' no existe... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`
+    return `\n Error: la variable '${String(id)}' no existe... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`
 }
 
 module.exports = Decremento

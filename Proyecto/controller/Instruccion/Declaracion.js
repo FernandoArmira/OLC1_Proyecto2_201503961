@@ -24,8 +24,12 @@ function Declaracion(_instruccion, _ambito){
             if(tipo === TIPO_DATO.DECIMAL){
                 valor = op.valor;
             }
+
+            else if(tipo === TIPO_DATO.ENTERO){
+                valor = op.valor + 0.0;
+            }
             else {
-                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.DECIMAL+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.DECIMAL+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
 
@@ -50,7 +54,7 @@ function Declaracion(_instruccion, _ambito){
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+            return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         //console.log(_ambito)
@@ -82,7 +86,7 @@ function Declaracion(_instruccion, _ambito){
                 
             }
             else {
-                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.ENTERO+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.ENTERO+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
 
@@ -107,7 +111,7 @@ function Declaracion(_instruccion, _ambito){
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+            return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
 
@@ -146,7 +150,7 @@ function Declaracion(_instruccion, _ambito){
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+            return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         }
@@ -165,7 +169,7 @@ function Declaracion(_instruccion, _ambito){
                 valor = Boolean(op.valor)
             }
             else{
-                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.BANDERA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.BANDERA+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
 
@@ -191,7 +195,7 @@ function Declaracion(_instruccion, _ambito){
         //verificamos si ya existe
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+            return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         }
@@ -208,7 +212,7 @@ function Declaracion(_instruccion, _ambito){
                 valor = op.valor;
             }
             else {
-                return "Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.CARACTER+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible asignar un valor de tipo "+tipo+" a la variable \n'"+ _instruccion.id +"' que es de tipo "+TIPO_DATO.CARACTER+"... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
 
@@ -234,7 +238,7 @@ function Declaracion(_instruccion, _ambito){
 
         const nuevoSimbolo = new Simbolo(_instruccion.id, valor, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
         if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-            return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+            return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
         }
         _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
         //console.log(_ambito)

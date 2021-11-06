@@ -33,9 +33,9 @@ function Exec(_instruccion, _ambito) {
                 if (ejec.hayBreak) {
                     mensaje += `Error: Se ha encontrado un break fuera de un ciclo`
                 }
-                if (ejec.hayContinue) {
+                /*if (ejec.hayContinue) {
                     mensaje += `Error: Se ha encontrado un continue fuera de un ciclo`
-                }
+                }*/
                 return mensaje
                 //return Bloque(metodoEjecutar.instrucciones, nuevoAmbito) 
                 //return cadena;
@@ -51,9 +51,9 @@ function Exec(_instruccion, _ambito) {
             if (ejec.hayBreak) {
                 mensaje += `Error: Se ha encontrado un break fuera de un ciclo`
             }
-            if (ejec.hayContinue) {
+            /*if (ejec.hayContinue) {
                 mensaje += `Error: Se ha encontrado un continue fuera de un ciclo`
-            }
+            }*/
             //console.log(mensaje)
             //console.log(nuevoAmbito)
             return mensaje

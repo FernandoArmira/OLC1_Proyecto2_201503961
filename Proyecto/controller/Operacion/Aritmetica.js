@@ -520,7 +520,7 @@ function incremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  + 1;
 
-            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
+            const existe = _ambito.existeSimbolo(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -545,7 +545,7 @@ function incremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  + 1;
 
-            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
+            const existe = _ambito.existeSimbolo(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -590,7 +590,7 @@ function decremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  - 1;
 
-            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
+            const existe = _ambito.existeSimbolo(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -615,7 +615,7 @@ function decremento(_opIzq,_opDer, _ambito){
 
             const resultado = Number(num1)  - 1;
 
-            const existe = _ambito.existeSimboloAmbitoActual(_opIzq.valor)
+            const existe = _ambito.existeSimbolo(_opIzq.valor)
 
             if(existe){
             //var valor = Operacion(_instruccion.expresion, _ambito)
@@ -713,8 +713,19 @@ function length(_opIzq,_opDer, _ambito){
     const opDer = Aritmetica(_opDer,_ambito)
     const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
 
-    //console.log(_opIzq)
+    //console.log(opIzq.valor)
     //console.log(_opDer)
+    if(Array.isArray(opIzq.valor)){
+        const resultado = opIzq.valor.length;
+
+            return{
+                valor: resultado,
+                tipo: TIPO_DATO.ENTERO,
+                linea: _opIzq.linea,
+                columna: _opIzq.columna
+            }
+    
+    }
     
     if(tipoRes!=null){
         if(tipoRes === TIPO_DATO.CADENA){
@@ -809,7 +820,7 @@ function typeoffuncion(_opIzq,_opDer, _ambito){
     const opDer = Aritmetica(_opDer,_ambito)
     const tipoRes = TipoResultado(opIzq.tipo, opDer.tipo)
 
-    //console.log(_opIzq)
+    //console.log(opIzq)
     //console.log(_opDer)
     
     if(tipoRes!=null){
@@ -821,9 +832,11 @@ function typeoffuncion(_opIzq,_opDer, _ambito){
             }else if(tipoRes == 'BANDERA'){
                 var resultado = "boolean";
             }else if(tipoRes == 'CADENA'){
-                var resultado = "string";
-            }else if(tipoRes == 'CARACTER'){
-                var resultado = "char";
+                if(opIzq.tipo == 'CARACTER'){
+                    var resultado = "char";
+                }else{
+                    var resultado = "string";
+                }
             }
             
 

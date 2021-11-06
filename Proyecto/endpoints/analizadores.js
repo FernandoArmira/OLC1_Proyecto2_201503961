@@ -21,12 +21,23 @@ module.exports=(parser, app)=>{
                 errores: TablaErrores
             }
             res.send(resultado)
+            //console.log(resultado.consola)
             //console.log(TablaSimbolos)
             //console.log(TablaSimbolos[0][0])
             //console.log(TablaErrores)
         //} catch (error) {
             //res.send(error)
         //}
+
+        var fs = require('fs')
+        var logger = fs.createWriteStream('log.txt', {
+        flags: 'a' // 'a' means appending (old data will be preserved)
+        })
+
+        logger.write('some data') // append string to your file
+        logger.write('more data') // again
+        logger.write('and more') // again
+        logger.end() // close string
 
     })
 

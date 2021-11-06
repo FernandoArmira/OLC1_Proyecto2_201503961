@@ -136,6 +136,18 @@ const Instruccion = {
         }
     },
 
+    nuevoCharArray: function(_tipo, _id, _expresion,_linea, _columna){
+        return {
+            tipo: TIPO_INSTRUCCION.CHARARRAY,
+            tipov: _tipo,
+            id: _id,
+            expresion: _expresion,
+            linea: _linea,
+            columna: _columna
+        }
+    },
+
+
     nuevoWhile: function(_expresion, _instrucciones, _linea, _columna){
         return {
             tipo: TIPO_INSTRUCCION.WHILE,

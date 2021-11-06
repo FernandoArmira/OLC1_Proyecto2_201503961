@@ -50,6 +50,7 @@
 "append"              return 'append'
 "getvalue"            return 'getvalue'
 "setvalue"            return 'setvalue'
+"tochararray"         return 'tochararray'
 
 
 "||"                   return 'or'
@@ -142,6 +143,7 @@ CUERPO: DEC_VAR {$$=$1}
       | DEC_LISTA {$$=$1}
       | ADD_LISTA {$$=$1}
       | UPD_LISTA {$$=$1}
+      | CHARARRAY {$$=$1}
       | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
       ErroresS =  new Array();
 ErroresS.push("Sintactico");
@@ -275,6 +277,7 @@ CUERPOMETODO: DEC_VAR {$$=$1}
             | DEC_LISTA {$$=$1}
             | ADD_LISTA {$$=$1}
             | UPD_LISTA {$$=$1}
+            | CHARARRAY {$$=$1}
             | error { console.error('Este es un error sintáctico: ' + yytext + ', en la linea: ' + this._$.first_line + ', en la columna: ' + this._$.first_column); 
 ErroresS =  new Array();
 ErroresS.push("Sintactico");
@@ -353,4 +356,7 @@ ADD_LISTA: append parA identificador coma EXPRESION parC ptcoma {$$ = INSTRUCCIO
 ;
 
 UPD_LISTA: setvalue parA identificador coma EXPRESION coma EXPRESION parC ptcoma {$$ = INSTRUCCION.nuevoUpdateLista($3, $5, $7, this._$.first_line,this._$.first_column+1)}
+;
+
+CHARARRAY: dynamiclist menor TIPO mayor identificador igual tochararray parA EXPRESION parC ptcoma {$$ = INSTRUCCION.nuevoCharArray($3, $5, $9, this._$.first_line,this._$.first_column+1)}
 ;

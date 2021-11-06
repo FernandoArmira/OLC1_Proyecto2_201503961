@@ -26,17 +26,17 @@ function Declaracionvector(_instruccion, _ambito){
 
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
             }
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         else {
-            return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
         }
         
     }
@@ -57,14 +57,14 @@ function Declaracionvector(_instruccion, _ambito){
                         nuevoarreglo.push(valor.toString())
                     
                     }else {
-                        return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                        return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
                     }
                 }
                 
     
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
@@ -72,7 +72,7 @@ function Declaracionvector(_instruccion, _ambito){
             }
 
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         return null
@@ -105,11 +105,11 @@ function Declaracionvector(_instruccion, _ambito){
                 //console.log(nuevoSimbolo)
             }
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         else {
-            return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
         }
         
     }
@@ -130,14 +130,14 @@ function Declaracionvector(_instruccion, _ambito){
                         nuevoarreglo.push(valor.toString())
                     
                     }else {
-                        return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                        return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
                     }
                 }
                 
     
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
@@ -145,7 +145,7 @@ function Declaracionvector(_instruccion, _ambito){
             }
 
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         return null
@@ -178,11 +178,11 @@ function Declaracionvector(_instruccion, _ambito){
                 //console.log(nuevoSimbolo)
             }
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         else {
-            return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
         }
         
     }
@@ -210,7 +210,7 @@ function Declaracionvector(_instruccion, _ambito){
     
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
@@ -218,7 +218,7 @@ function Declaracionvector(_instruccion, _ambito){
             }
 
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         return null
@@ -251,11 +251,11 @@ function Declaracionvector(_instruccion, _ambito){
                 //console.log(nuevoSimbolo)
             }
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         else {
-            return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
         }
         
     }
@@ -283,7 +283,7 @@ function Declaracionvector(_instruccion, _ambito){
     
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.BANDERA, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
@@ -291,7 +291,7 @@ function Declaracionvector(_instruccion, _ambito){
             }
 
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         return null
@@ -318,17 +318,17 @@ function Declaracionvector(_instruccion, _ambito){
 
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
             }
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         else {
-            return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+            return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
         }
         
     }
@@ -356,7 +356,7 @@ function Declaracionvector(_instruccion, _ambito){
     
                 const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.CARACTER, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)
@@ -364,7 +364,7 @@ function Declaracionvector(_instruccion, _ambito){
             }
 
             else {
-                return "Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+                return "\n Error: No es posible declarar el vector ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
             }
         }
         return null

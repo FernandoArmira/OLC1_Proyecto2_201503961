@@ -1,9 +1,11 @@
 const procesarCadena = require("../Operacion/procesarCadena")
 
 function Cout(_instruccion, _ambito){
+    //console.log(_instruccion)
     const cadena = procesarCadena(_instruccion.expresion, _ambito).valor
     //console.log(cadena)
     var imprimir = cadena
+
     temp = ""
     split1 = String(imprimir).split("\\n");
     //console.log(split1.length)
@@ -67,7 +69,7 @@ function Cout(_instruccion, _ambito){
         imprimir = temp
     }
 
-
+    //console.log(imprimir)
     return imprimir
 }
 

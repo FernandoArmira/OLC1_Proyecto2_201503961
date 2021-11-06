@@ -20,7 +20,7 @@ function CicloWhile(_instruccion, _ambito){
         }
         return mensaje
     }
-    return `Error: No es una expresion de tipo BANDERA en la condicion... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`
+    return `\n Error: No es una expresion de tipo BANDERA en la condicion... Linea: ${_instruccion.linea} Columna: ${_instruccion.columna}`
 }
 
 module.exports = CicloWhile

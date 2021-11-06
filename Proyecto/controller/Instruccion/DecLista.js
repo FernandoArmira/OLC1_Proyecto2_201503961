@@ -13,14 +13,14 @@ function Declaracionlista(_instruccion, _ambito){
 
             const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.DECIMAL, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)        
     }
 
     else {
-        return "Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+        return "\n Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
     }
     
     return null
@@ -35,14 +35,14 @@ function Declaracionlista(_instruccion, _ambito){
 
             const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.ENTERO, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)        
     }
 
     else {
-        return "Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+        return "\n Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
     }
     
     return null
@@ -57,14 +57,14 @@ function Declaracionlista(_instruccion, _ambito){
 
             const nuevoSimbolo = new Simbolo(_instruccion.id, nuevoarreglo, TIPO_DATO.CADENA, _instruccion.linea, _instruccion.columna)
                 if(_ambito.existeSimboloAmbitoActual(nuevoSimbolo.id)!=false){
-                    return "Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
+                    return "\n Error: La variable '"+ nuevoSimbolo.id +"' ya existe... Linea: "+nuevoSimbolo.linea+" Columna: "+ nuevoSimbolo.columna;
                 }
                 _ambito.addSimbolo(nuevoSimbolo.id, nuevoSimbolo)
                 //console.log(nuevoSimbolo)        
     }
 
     else {
-        return "Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+        return "\n Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
     }
     
     return null
@@ -86,7 +86,7 @@ function Declaracionlista(_instruccion, _ambito){
     }
 
     else {
-        return "Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+        return "\n Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
     }
     
     return null
@@ -108,7 +108,7 @@ function Declaracionlista(_instruccion, _ambito){
     }
 
     else {
-        return "Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
+        return "\n Error: No es posible declarar la lista ... Linea: "+_instruccion.linea+" Columna: "+ _instruccion.columna;
     }
     
     return null
